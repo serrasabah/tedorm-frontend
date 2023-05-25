@@ -83,7 +83,7 @@ export const AccountProfileDetails = () => {
                   fullWidth
                   label="Last name"
                   name="lastName"
-                  onChange={handleChange}
+                  onChange={onChangeFunction}
                   required
                   value={values.lastName}
                 />
