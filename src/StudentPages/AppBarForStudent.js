@@ -1,3 +1,4 @@
+
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -15,6 +16,7 @@ import RoomIcon from "@mui/icons-material/Room";
 import { NavLink } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import StudentProfilePages from "./ProfilePage/StudentProfilePage";
 const pages = ["Home Page", "Menu", "Request", "Announcement"];
 const settings = ["Profile", "Account", "Logout"];
 const darkTheme = createTheme({
@@ -124,7 +126,7 @@ function AppBarForStudents() {
                 variant="h6"
                 noWrap
                 component="a"
-                href="/RequestFormForSudents"
+                href="/PermissionFormForStudents"
                 sx={{
                   mr: 2,
                   display: { xs: "none", md: "flex" },
@@ -135,7 +137,7 @@ function AppBarForStudents() {
                   textDecoration: "none",
                 }}
               >
-                Request
+                Take Permission
               </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
