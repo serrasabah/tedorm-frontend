@@ -1,5 +1,15 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 
-const Context = React.createContext();
+// Bağlamı (context) oluşturma
+export const Context = createContext();
 
-export default Context;
+// Bağlam sağlayıcısı bileşen
+export const UsernameProvider = ({ children }) => {
+  const [username, setUsername] = useState("");
+
+  return (
+    <Context.Provider value={{ username, setUsername }}>
+      {children}
+    </Context.Provider>
+  );
+};

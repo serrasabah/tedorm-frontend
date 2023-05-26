@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import TEDORMmap from "./TEDORMmap.png";
 import { CardMedia } from "@mui/material";
+import * as React from 'react';
 
 function MainPageForStudent() {
   return (
