@@ -1,11 +1,34 @@
 import AppBarForStudents from "./AppBarForStudent";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import TEDORMmap from "./TEDORMmap.png";
-import { CardMedia } from "@mui/material";
+import { CardMedia, Paper, Box, Button } from "@mui/material";
 import * as React from 'react';
+import { UserApi } from "../api/UserApi";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 function MainPageForStudent() {
+
+  const [user, setUser] = useState(null); // Öğrenci verisi için state tanımlayın
+  const userApi = new UserApi();
+
+  const { id } = useParams();
+  const navigate = useNavigate();
+  useEffect(() => {
+    // Component yüklendiğinde öğrenci verisini almak için useEffect kullanın
+    async function fetchUser() {
+      try {
+        const response = await userApi.getUserById(id); // Spring Boot'tan öğrenci verisini alın
+        setUser(response.data); // Veriyi state'e kaydedin
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchUser();
+  }, [id]);
+  const handleProfileClick = () => {
+    navigate(`/StudentProfilePage/${id}`);
+  };
   return (
     <div>
       <AppBarForStudents />
@@ -48,6 +71,9 @@ function MainPageForStudent() {
               "& > :not(style)": {},
             }}
           ></CardMedia>
+          <Button variant="outlined" onClick={handleProfileClick}>
+            Go to Profile
+          </Button>
         </Box>
       </Box>
     </div>

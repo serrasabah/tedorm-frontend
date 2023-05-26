@@ -7,15 +7,34 @@ import { LocalizationProvider } from '@mui/x-date-pickers-pro';
 import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 import { toast } from "react-toastify";
-
 import { useState, useEffect } from "react";
 import AddAddress from './AddAddress';
 import AppBarForStudents from '../AppBarForStudent';
 import { AddAddressApi } from '../../api/AddAddressApi';
 import { AddPermissionApi } from "../../api/AddPermissionApi";
+import { useParams } from "react-router-dom";
+import { StudentApi } from '../../api/StudentApi';
+
 export default function PermissionFormForStudents() {
   const permissionApi = new AddPermissionApi();
   const addAddressApi = new AddAddressApi();
+  const studentApi = new StudentApi();
+  const [student, setStudent] = useState(null); // Öğrenci verisi için state tanımlayın
+  const { id } = useParams();
+
+  useEffect(() => {
+    // Component yüklendiğinde öğrenci verisini almak için useEffect kullanın
+    async function fetchStudent() {
+      try {
+        const response = await studentApi.getStudentById(id); // Spring Boot'tan öğrenci verisini alın
+        setStudent(response.data); // Veriyi state'e kaydedin
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchStudent();
+  }, [id]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,11 +52,8 @@ export default function PermissionFormForStudents() {
     fetchAddresses();
   }, []);
   const fetchAddresses = async () => {
-
     const response = await addAddressApi.getAddress();
     setAddresses(response.data);
-
-
   };
   const handleChange = (event) => {
     setAddress(event.target.value);
@@ -80,8 +96,6 @@ export default function PermissionFormForStudents() {
       permissionDateStart: startDate,
       permissionDateEnd: endDate,
     };
-
-
     const response = await permissionApi.addPermissions(permissionData);
     if (response.data.responseType === "SUCCESS") {
       toast.success(response.data.message);
@@ -145,14 +159,11 @@ export default function PermissionFormForStudents() {
                           localeText={{ start: 'Start day', end: 'End day' }}
                           value={formState.permissionDates}
                           onChange={(newValue) => {
-
                             const newState = { ...formState };
                             console.log(newState);
                             newState.permissionDates = newValue;
                             setFormState(newState);
-
                           }} />
-
                       </DemoContainer>
                     </LocalizationProvider>
                   </FormControl>
@@ -164,8 +175,21 @@ export default function PermissionFormForStudents() {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControlLabel
-                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                    label="I accept the confidentiality of information." />
+                    control={
+                      <Checkbox
+                        checked={formState.allowExtraEmails}
+                        onChange={(event) =>
+                          setFormState((prevState) => ({
+                            ...prevState,
+                            allowExtraEmails: event.target.checked,
+                          }))
+                        }
+                        value="allowExtraEmails"
+                        color="primary"
+                      />
+                    }
+                    label="I accept the confidentiality of information."
+                  />
                 </Grid>
               </Grid>
               <Button onClick={() => addPermission(formState)} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>

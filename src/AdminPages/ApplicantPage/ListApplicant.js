@@ -6,6 +6,7 @@ import { ApplicantApi } from "../../api/ApplicantApi";
 import { toast } from "react-toastify";
 import { IconButton } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+import AppBarForAdmin from "../AppBarForAdmin";
 
 function ListApplicant() {
     const [selectionModel, setSelectionModel] = useState();
@@ -105,6 +106,7 @@ function ListApplicant() {
     ];
     return (
         <div className="list">
+            <AppBarForAdmin />
             <Box
                 sx={{
                     height: "450px",

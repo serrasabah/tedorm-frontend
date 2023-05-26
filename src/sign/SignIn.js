@@ -18,7 +18,10 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import ApplicantPage from "../AplicantPage/ApplicantPage";
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import {ApplicantApi }from "../api/ApplicantApi";
+import { ApplicantApi } from "../api/ApplicantApi";
+import { UserApi } from "../api/UserApi";
+import ListStudent from "../AdminPages/ListStudent";
+
 function Copyright(props) {
   return (
     <Typography
@@ -28,8 +31,8 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://tedorm.com/">
+        TEDORM
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -43,11 +46,12 @@ export default function SignIn() {
   const applicantApi = new ApplicantApi();
   const loginApi = new LoginApi();
   const [formState, setFormState] = useState({});
+  const [user, setUser] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
   const [isAddApplicantModalOpen, setAddApplicantModalOpen] = useState(false);
-  
+
   async function addApplicant(formState) {
     const response = (await applicantApi.addApplicant(formState)).data;
     if (response.responseType === "SUCCESS") {
@@ -82,15 +86,22 @@ export default function SignIn() {
     } else {
       const response = await loginApi.login(formState);
       const messageResponse = response.data;
-      console.log(formState);
 
       if (messageResponse.responseType === "SUCCESS") {
         toast.success(messageResponse.message);
         window.localStorage.setItem("username", username);
         const name = username.toUpperCase();
-        console.log(name);
-        navigate("/MainPageForStudent", { state: { name: name } });
-      } else {
+        console.log(response);
+        const id = messageResponse.ID;
+        console.log(id);
+        if (messageResponse.isAuthority === "STUDENT") {
+          navigate(`/MainPageForStudent/${id}`);
+        }
+        else if (messageResponse.isAuthority === "ADMIN") {
+          navigate(`/ListStudent/${id}`);
+        }
+      }
+      else {
         toast.error(messageResponse.message);
       }
     }
@@ -172,16 +183,12 @@ export default function SignIn() {
               </Grid>
               <Button sx={{ m: 1 }} variant="outlined" onClick={() => setAddApplicantModalOpen(true)}>Add Applicant <AddBoxIcon /></Button>
               <ApplicantPage isOpen={isAddApplicantModalOpen} close={() => setAddApplicantModalOpen(false)} submit={addApplicant} />
-
               <Grid item>
                 <Link href="" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
-
-
-
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
