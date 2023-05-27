@@ -47,24 +47,25 @@ function StudentProfilePages() {
           <Container maxWidth="lg">
             <Stack spacing={3}>
               <div>
-                <Typography variant="h4">{student.name}</Typography>
+                <Typography   variant="h4">{student.name}</Typography>
               </div>
               <div>
                 <Grid container spacing={3}>
                   <Grid xs={12} md={6} lg={4}>
                     <AccountProfile />
                   </Grid>
-                  <Grid xs={12} md={6} lg={8}>
+                  <Grid xs={12} md={6} lg={5}>
                     <Card>
                       <CardContent>
                         <Box
                           sx={{
+                          
                             display: "flex",
                             flexDirection: "column",
                           }}
                         >
                           <div>
-                            <Typography variant="h6" >
+                            <Typography fontFamily= "Arial" variant="h6" >
                               Name: {student.name}
                             </Typography>
                             <Divider />

@@ -5,7 +5,7 @@ import * as React from 'react';
 import { UserApi } from "../api/UserApi";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import PermissionFormForStudents from "./PermissionPage/PermissionFormForStudents"; 
 function MainPageForStudent() {
 
   const [user, setUser] = useState(null); // Öğrenci verisi için state tanımlayın
@@ -28,6 +28,9 @@ function MainPageForStudent() {
   }, [id]);
   const handleProfileClick = () => {
     navigate(`/StudentProfilePage/${id}`);
+  };
+  const handlePermissionClick = () => {
+    navigate(`/PermissionFormForStudents/${id}`);
   };
   return (
     <div>
@@ -73,6 +76,9 @@ function MainPageForStudent() {
           ></CardMedia>
           <Button variant="outlined" onClick={handleProfileClick}>
             Go to Profile
+          </Button>
+          <Button variant="outlined" onClick={handlePermissionClick}>
+            Go to Permission
           </Button>
         </Box>
       </Box>

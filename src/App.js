@@ -37,7 +37,7 @@ function App() {
             />
             <Route
               element={<PermissionFormForStudents />}
-              path={"/PermissionFormForStudents"}
+              path={"/PermissionFormForStudents/:id"}
             />
             <Route element={<ListStudents />} path={"/ListStudents"} />
 

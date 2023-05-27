@@ -127,6 +127,7 @@ function AppBarForStudents() {
                 noWrap
                 component="a"
                 href="/PermissionFormForStudents"
+                
                 sx={{
                   mr: 2,
                   display: { xs: "none", md: "flex" },
