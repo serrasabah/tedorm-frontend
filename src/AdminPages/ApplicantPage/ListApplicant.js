@@ -1,13 +1,16 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { ApplicantApi } from "../../api/ApplicantApi";
 import { toast } from "react-toastify";
-import { IconButton } from "@mui/material";
+import { IconButton, Stack, Container } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import AppBarForAdmin from "../AppBarForAdmin";
-
+import { DataGrid , GridToolbar} from "@mui/x-data-grid";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import { GridActionsCellItem } from "@mui/x-data-grid-pro";
+import DoneIcon from '@mui/icons-material/Done';
+import { Done } from "@mui/icons-material";
 function ListApplicant() {
     const [selectionModel, setSelectionModel] = useState();
     const [applicant, setApplicant] = useState([]);
@@ -90,7 +93,7 @@ function ListApplicant() {
             width: 150,
             editable: true,
         },
-        {
+      /*  {
             field: "delete",
             width: 75,
             disableColumnMenu: true,
@@ -101,21 +104,43 @@ function ListApplicant() {
                     </IconButton>
                 );
             }
-        }
+        },
+        */
+        {
+            field: 'actions',
+            type: 'actions',
+            width: 80,
+            getActions: (params) => [
+              <GridActionsCellItem
+                icon={<DeleteIcon />}
+                label="Delete"
+               // onClick={deleteUser(params.id)}
+              />,
+              <GridActionsCellItem
+                icon={<DoneIcon />}
+                label="Accept"
+                //onClick={toggleAdmin(params.id)}
+                //showInMenu
+              />,
+            ],
+          },
 
     ];
     return (
         <div className="list">
             <AppBarForAdmin />
-            <Box
-                sx={{
-                    height: "450px",
-                    width: "95vh",
-                    margin: "auto",
-                    padding: "auto",
-                }}
-            >
+            <Container>
+        <Box sx={{ width: "100%", m: "2rem" }}>
+          <Stack direction="row" spacing={1}></Stack>
+          <Box sx={{ height: 600, mt: 1 }}>
                 <DataGrid
+                       sx={{
+                        ".MuiDataGrid-columnSeparator": {
+                            display: "none",
+                        },
+                    }}
+                 orientation="vertical"
+                 slots={{ toolbar: GridToolbar }}
                     rows={applicant}
                     columns={columns}
                     pageSize={5}
@@ -130,13 +155,19 @@ function ListApplicant() {
                         if (selection.length > 1) {
                             const selectionSet = new Set(selectionModel);
                             const result = selection.filter((s) => !selectionSet.has(s));
+
                             setSelectionModel(result);
+                            console.log(selectionModel);
                         } else {
                             setSelectionModel(selection);
+                            console.log(selectionModel);
                         }
                     }}
                 />
             </Box>
+            </Box>
+            
+            </Container>
         </div>
     );
 }

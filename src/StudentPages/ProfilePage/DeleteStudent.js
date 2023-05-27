@@ -25,13 +25,13 @@ export const DeleteStudent = ({ student }) => {
   const studentApi = new StudentApi();
   const navigate = useNavigate();
 
-  const [values, setValues] = useState({
+  /*const [values, setValues] = useState({
     university: student.university,
     email: student.email,
     phoneNumber: student.phoneNumber,
     roomNumber: student.roomNumber,
   });
-
+*/
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -76,7 +76,7 @@ export const DeleteStudent = ({ student }) => {
                   Delete
                 </Button>
                 <Button variant="contained" onClick={handleClose}>
-                  cancel
+                  Cancel
                 </Button>
               </CardActions>
             </Card>

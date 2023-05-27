@@ -59,7 +59,7 @@ function ListPermissions() {
     const columns = [
         {
             field: "id",
-            headerName: "ID",
+            headerName: "Number",
             width: 100,
             editable: false,
         },

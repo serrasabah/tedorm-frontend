@@ -26,10 +26,10 @@ export const AccountProfileDetails = ({ student }) => {
   const studentApi = new StudentApi();
 
   const [values, setValues] = useState({
-    university: student.university,
-    email: student.email,
-    phoneNumber: student.phoneNumber,
-    roomNumber: student.roomNumber,
+   // university: student.university,
+    //email: student.email,
+    //phoneNumber: student.phoneNumber,
+    //roomNumber: student.roomNumber,
   });
 
   const handleClickOpen = () => {

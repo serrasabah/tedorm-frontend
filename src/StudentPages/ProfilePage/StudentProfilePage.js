@@ -100,7 +100,6 @@ function StudentProfilePages() {
                         </Box>
                       </CardContent>
                       <Divider />
-
                     </Card>
                   </Grid>
 
@@ -110,9 +109,7 @@ function StudentProfilePages() {
                     </div>
                     <ViewDocuments id={id} />
                   </Grid>
-                  <Grid xs={12} md={6} lg={8}>
-                    <AccountProfileDetails />
-                  </Grid>
+                  
                 </Grid>
               </div>
             </Stack>

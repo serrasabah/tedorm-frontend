@@ -76,7 +76,11 @@ export default function StudentAvatar() {
   return (
     <>
       <div>
-        <Button variant="outlined" onClick={handleClickOpen}>
+        <Button  sx={{
+                          width: "100%",
+                          marginLeft : "75%",
+                        }}
+                        variant="outlined" onClick={handleClickOpen}>
           Upload Image
         </Button>
         <Dialog

@@ -8,13 +8,21 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { toast } from "react-toastify";
 import { FileApi } from "../../api/FileApi";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import {
+  Box,
+  Button,
+ 
+  Unstable_Grid2 as Grid,
+} from "@mui/material";
+
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useParams } from "react-router-dom";
+import { AccountProfileDetails } from "./AccountProfileDetails";
+import { DeleteStudent } from "./DeleteStudent";
+import { ChangePassword } from "./ChangePassword";
 
 const fileTypes = ["JPEG", "PNG", "PDF"];
 const fileApi = new FileApi();
@@ -83,10 +91,19 @@ export default function UploadFileForStudent() {
 
   return (
     <>
-      <div>
-        <Button variant="outlined" onClick={handleClickOpen}>
-          Add File
-        </Button>
+        <div style={{ display: "flex", gap: "5px" }}>
+        <div>
+            <AccountProfileDetails/>  
+        </div>
+        <div>
+            <ChangePassword/>  
+        </div>
+        <div>
+          <Button variant="outlined" onClick={handleClickOpen}>
+            Add File
+          </Button>
+        </div>
+      </div>
         <Dialog
           open={open}
           onClose={handleClose}
@@ -134,7 +151,8 @@ export default function UploadFileForStudent() {
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
+   
+
     </>
   );
 }

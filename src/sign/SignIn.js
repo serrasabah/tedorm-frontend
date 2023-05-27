@@ -23,6 +23,8 @@ import { UserApi } from "../api/UserApi";
 import ListStudent from "../AdminPages/ListStudent";
 import imageYurtSized from "./imageYurtSized.png";
 import { CardMedia, Paper } from '@mui/material';
+import { ForgotPassword } from "./ForgotPassword";
+
 function Copyright(props) {
   return (
     <Typography
@@ -190,18 +192,22 @@ export default function SignIn() {
                 Sign In
               </Button>
               <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
+                <Grid item >
+                  <ForgotPassword username={username} />
                 </Grid>
-                <Button sx={{ m: 1 }} variant="outlined" onClick={() => setAddApplicantModalOpen(true)}>Add Applicant <AddBoxIcon /></Button>
-                <ApplicantPage isOpen={isAddApplicantModalOpen} close={() => setAddApplicantModalOpen(false)} submit={addApplicant} />
-                <Grid item>
-                  <Link href="" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
+                <Button
+                  variant="outlined"
+                  onClick={() => setAddApplicantModalOpen(true)}
+                >
+                  Add Applicant <AddBoxIcon />
+                </Button>
+                <ApplicantPage
+                  
+                  isOpen={isAddApplicantModalOpen}
+                  close={() => setAddApplicantModalOpen(false)}
+                  submit={addApplicant}
+                />
+
               </Grid>
               <Copyright sx={{ mt: 5 }} />
             </Box>

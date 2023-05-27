@@ -9,6 +9,8 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
@@ -17,8 +19,17 @@ import { NavLink } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import StudentProfilePages from "./ProfilePage/StudentProfilePage";
+
+import { UserApi } from "../api/UserApi";
+
+function AppBarForStudents() {
+  
+const [user, setUser] = useState(null); // Öğrenci verisi için state tanımlayın
+const userApi = new UserApi();
+
+const { id } = useParams();
 const pages = ["Home Page", "Menu", "Request", "Announcement"];
-const settings = ["Profile", "Account", "Logout"];
+const settings = ["Profile", "Logout"];
 const darkTheme = createTheme({
   palette: {
     mode: "light",
@@ -27,7 +38,7 @@ const darkTheme = createTheme({
     },
   },
 });
-function AppBarForStudents() {
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -46,6 +57,28 @@ function AppBarForStudents() {
     setAnchorElUser(null);
   };
 
+  useEffect(() => {
+    // Component yüklendiğinde öğrenci verisini almak için useEffect kullanın
+    async function fetchUser() {
+      try {
+        const response = await userApi.getUserById(id); // Spring Boot'tan öğrenci verisini alın
+        setUser(response.data); // Veriyi state'e kaydedin
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchUser();
+  }, [id]);
+  const navigate = useNavigate();
+  const handleProfileClick = (setting) => {
+    if (setting === "Logout") {
+      navigate(`/`); // Redirect to the sign-in page
+    } else {
+      navigate(`/StudentProfilePage/${id}`);
+    }
+    handleCloseUserMenu();
+  };
   return (
     <Stack spacing={2} sx={{ flexGrow: 1 }}>
       <ThemeProvider theme={darkTheme}>
@@ -127,7 +160,7 @@ function AppBarForStudents() {
                 noWrap
                 component="a"
                 href="/PermissionFormForStudents"
-                
+        
                 sx={{
                   mr: 2,
                   display: { xs: "none", md: "flex" },
@@ -228,7 +261,7 @@ function AppBarForStudents() {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <MenuItem key={setting} onClick={handleProfileClick}>
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}
