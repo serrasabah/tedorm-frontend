@@ -16,4 +16,7 @@ export class StudentApi {
   getStudentById(id) {
     return axios.get("/students/" + id);
   }
+  changePassword(id, formState) {
+    return axios.post("/students/changePassword/" + id, formState);
+  }
 }

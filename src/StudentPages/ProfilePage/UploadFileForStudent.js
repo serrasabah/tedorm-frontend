@@ -108,13 +108,13 @@ export default function UploadFileForStudent() {
                   required // Add the 'required' attribute to the Select component
                 >
                   <MenuItem value="vesikalik">Vesikalık</MenuItem>
-                  <MenuItem value="sağlik_belgesi">sağlık belgesi</MenuItem>
+                  <MenuItem value="sağlik_belgesi">Sağlık belgesi</MenuItem>
                   <MenuItem value="ogrenci_belgesi">öğrenci belgesi</MenuItem>
                   <MenuItem value="adli_sicil_belgesi">
-                    adli sicil belgesi
+                    Adli sicil belgesi
                   </MenuItem>
                   <MenuItem value="ikametgah_belgesi">
-                    ikametgah belgesi
+                    Ikametgah belgesi
                   </MenuItem>
                 </Select>
               </FormControl>

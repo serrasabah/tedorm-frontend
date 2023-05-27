@@ -17,8 +17,10 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import ApplicantPage from "../AplicantPage/ApplicantPage";
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import {ApplicantApi }from "../api/ApplicantApi";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import { ApplicantApi } from "../api/ApplicantApi";
+import { ForgotPassword } from "./ForgotPassword";
+
 function Copyright(props) {
   return (
     <Typography
@@ -47,7 +49,7 @@ export default function SignIn() {
   const [password, setPassword] = useState();
   const navigate = useNavigate();
   const [isAddApplicantModalOpen, setAddApplicantModalOpen] = useState(false);
-  
+
   async function addApplicant(formState) {
     const response = (await applicantApi.addApplicant(formState)).data;
     if (response.responseType === "SUCCESS") {
@@ -166,22 +168,20 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+                <ForgotPassword username={username} />
               </Grid>
-              <Button sx={{ m: 1 }} variant="outlined" onClick={() => setAddApplicantModalOpen(true)}>Add Applicant <AddBoxIcon /></Button>
-              <ApplicantPage isOpen={isAddApplicantModalOpen} close={() => setAddApplicantModalOpen(false)} submit={addApplicant} />
-
-              <Grid item>
-                <Link href="" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
+              <Button
+                variant="outlined"
+                onClick={() => setAddApplicantModalOpen(true)}
+              >
+                Add Applicant <AddBoxIcon />
+              </Button>
+              <ApplicantPage
+                isOpen={isAddApplicantModalOpen}
+                close={() => setAddApplicantModalOpen(false)}
+                submit={addApplicant}
+              />
             </Grid>
-
-
-
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />

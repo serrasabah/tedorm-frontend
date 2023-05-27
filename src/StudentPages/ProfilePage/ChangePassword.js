@@ -16,24 +16,21 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import { StudentApi } from "../../api/StudentApi";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-export const AccountProfileDetails = ({ student }) => {
+export const ChangePassword = ({ student }) => {
   const [formState, setFormState] = useState({});
-  const [file, setFile] = useState(null);
-  const [name, setName] = useState("");
   const [open, setOpen] = React.useState(false);
   const { id } = useParams();
   const studentApi = new StudentApi();
-
-  const [values, setValues] = useState({
-    university: student.university,
-    email: student.email,
-    phoneNumber: student.phoneNumber,
-    roomNumber: student.roomNumber,
+  const navigate = useNavigate();
+  const [textFieldValues, setTextFieldValues] = useState({
+    eskiSifre: "",
+    yeniSifre: "",
+    yeniSifreTekrar: "",
   });
 
   const handleClickOpen = () => {
-    resetFileAndName();
     setOpen(true);
   };
 
@@ -41,30 +38,27 @@ export const AccountProfileDetails = ({ student }) => {
     setOpen(false);
   };
 
-  function resetFileAndName() {
-    setFile(null);
-    setName("");
-  }
+  const isAnyTextFieldEmpty = Object.values(textFieldValues).some(
+    (value) => value === ""
+  );
 
-  const handleChange = useCallback((event) => {
-    setValues((prevState) => ({
-      ...prevState,
-      [event.target.name]: event.target.value,
+  const handleTextFieldChange = (event, fieldName) => {
+    let value = event.target.value;
+
+    setTextFieldValues((prevValues) => ({
+      ...prevValues,
+      [fieldName]: value,
     }));
-  }, []);
-
-  function onChangeFunction(event) {
-    const name = event.target.name;
-    const value = event.target.value;
-    const newState = { ...formState };
-    newState[name] = value;
-    setFormState(newState);
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const response = await studentApi.updateStudents(student.id, values);
+    console.log(student.id);
+    console.log(textFieldValues);
+    const response = await studentApi.changePassword(
+      student.id,
+      textFieldValues
+    );
     const messageResponse = response.data;
     if (messageResponse.responseType === "SUCCESS") {
       toast.success(messageResponse.message);
@@ -78,7 +72,7 @@ export const AccountProfileDetails = ({ student }) => {
     <>
       <div>
         <Button variant="outlined" onClick={handleClickOpen}>
-          Update Student
+          Change Password
         </Button>
         <Dialog
           open={open}
@@ -86,7 +80,6 @@ export const AccountProfileDetails = ({ student }) => {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">{"Update Student"}</DialogTitle>
           <form autoComplete="off" noValidate onSubmit={handleSubmit}>
             <Card>
               <CardHeader
@@ -96,44 +89,43 @@ export const AccountProfileDetails = ({ student }) => {
               <CardContent sx={{ pt: 0 }}>
                 <Box sx={{ m: -1.5 }}>
                   <Grid container spacing={3}>
-                    <Grid xs={12} md={6}>
+                    <Grid xs={12} md={8}>
                       <TextField
+                        error={textFieldValues.eskiSifre === ""}
                         fullWidth
-                        label="Email Address"
-                        name="email"
-                        onChange={handleChange}
+                        label="Eski Şifreniz"
+                        name="eskiSifre"
                         required
-                        value={values.email}
+                        onChange={(event) =>
+                          handleTextFieldChange(event, "eskiSifre")
+                        }
+                        type="password"
                       />
                     </Grid>
-                    <Grid xs={12} md={6}>
+                    <Grid xs={12} md={8}>
                       <TextField
+                        error={textFieldValues.yeniSifre === ""}
                         fullWidth
-                        label="Email Address"
-                        name="email"
-                        onChange={handleChange}
+                        label="Yeni Şifreniz"
+                        name="yeniSifre"
                         required
-                        value={values.university}
+                        onChange={(event) =>
+                          handleTextFieldChange(event, "yeniSifre")
+                        }
+                        type="password"
                       />
                     </Grid>
-                    <Grid xs={12} md={6}>
+                    <Grid xs={12} md={8}>
                       <TextField
+                        error={textFieldValues.yeniSifreTekrar === ""}
                         fullWidth
-                        label="Phone Number"
-                        name="phoneNumber"
-                        onChange={handleChange}
+                        label="Yeni Şifreniz Tekrar"
+                        name="yeniSifreTekrar"
                         required
-                        value={values.phoneNumber}
-                      />
-                    </Grid>
-                    <Grid xs={12} md={6}>
-                      <TextField
-                        fullWidth
-                        label="Room Number"
-                        name="roomNumber"
-                        onChange={handleChange}
-                        required
-                        value={values.roomNumber}
+                        onChange={(event) =>
+                          handleTextFieldChange(event, "yeniSifreTekrar")
+                        }
+                        type="password"
                       />
                     </Grid>
                     <Grid xs={12} md={6}></Grid>
@@ -142,8 +134,15 @@ export const AccountProfileDetails = ({ student }) => {
               </CardContent>
               <Divider />
               <CardActions sx={{ justifyContent: "flex-end" }}>
-                <Button variant="contained" type="submit">
-                  Save details
+                <Button
+                  variant="contained"
+                  type="submit"
+                  disabled={isAnyTextFieldEmpty}
+                >
+                  change password
+                </Button>
+                <Button variant="contained" onClick={handleClose}>
+                  cancel
                 </Button>
               </CardActions>
             </Card>
