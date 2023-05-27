@@ -53,6 +53,7 @@ export default function SignIn() {
   const navigate = useNavigate();
   const [isAddApplicantModalOpen, setAddApplicantModalOpen] = useState(false);
 
+
   async function addApplicant(formState) {
     const response = (await applicantApi.addApplicant(formState)).data;
     if (response.responseType === "SUCCESS") {

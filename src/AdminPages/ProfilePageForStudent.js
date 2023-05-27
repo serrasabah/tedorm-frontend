@@ -13,6 +13,8 @@ import { useState, useEffect } from "react";
 import { StudentApi } from "../api/StudentApi";
 import ViewDocuments from "../StudentPages/ViewDocuments";
 import { useParams } from "react-router-dom";
+import { DeleteStudent } from "../StudentPages/ProfilePage/DeleteStudent";
+import { ChangePassword } from "../StudentPages/ProfilePage/ChangePassword";
 
 function ProfilePageForStudent() {
   const [student, setStudent] = useState(null); // Öğrenci verisi için state tanımlayın
@@ -144,7 +146,13 @@ function ProfilePageForStudent() {
                     {/* id prop'unu ViewDocuments bileşenine geçirin */}
                   </Grid>
                   <Grid xs={12} md={6} lg={8}>
-                    <AccountProfileDetails />
+                    <AccountProfileDetails student={student} />
+                  </Grid>
+                  <Grid xs={12} md={6} lg={8}>
+                    <DeleteStudent student={student} />
+                  </Grid>
+                  <Grid xs={12} md={6} lg={8}>
+                    <ChangePassword student={student} />
                   </Grid>
                 </Grid>
               </div>

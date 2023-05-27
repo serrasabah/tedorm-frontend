@@ -19,4 +19,7 @@ export class UserApi {
   getUserByUsername(username) {
     return axios.get("/user/" + username);
   }
+  forgotPassword(email) {
+    return axios.post("/user/forgotPassword", email);
+  }
 }

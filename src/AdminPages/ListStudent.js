@@ -120,6 +120,11 @@ function ListStudent() {
     setOpen(false);
   }
 
+  useEffect(() => {
+    // Call the function to fetch and update the user data
+    addUsers(textFieldValues);
+  }, []);
+
   const isAnyTextFieldEmpty = Object.values(textFieldValues).some(
     (value) => value === ""
   );
