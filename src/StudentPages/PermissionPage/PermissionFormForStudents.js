@@ -20,6 +20,7 @@ export default function PermissionFormForStudents() {
   const addAddressApi = new AddAddressApi();
   const studentApi = new StudentApi();
   const [student, setStudent] = useState(null); // Öğrenci verisi için state tanımlayın
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -32,7 +33,6 @@ export default function PermissionFormForStudents() {
         console.log(error);
       }
     }
-
     fetchStudent();
   }, [id]);
 
@@ -40,12 +40,14 @@ export default function PermissionFormForStudents() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
   };
+
   const [addresses, setAddresses] = useState([]);
   const [address, setAddress] = useState('');
   const [isAddAddressOpen, setAddAddressOpen] = useState(false);
   const [formState, setFormState] = useState({
     permissionDates: [null, null], // Initialize with null values
   });
+
   const [formStateAddress, setFormStateAddress] = useState({});
   useEffect(() => {
     // Fetch initial addresses
@@ -90,18 +92,28 @@ export default function PermissionFormForStudents() {
       toast.error("Please accept the confidentiality of information.");
       return;
     }
+    if (!address) {
+      // Show a warning message if address is not selected
+      toast.warning("Please select an address.");
+      return;
+    }
+    if (startDate === null || endDate === null || startDate > endDate) {
+      toast.warning("Please select a valid date range.");
+      return;
+    }
 
     const permissionData = {
       ...rest,
       permissionDateStart: startDate,
       permissionDateEnd: endDate,
+      student_id: student.id
     };
+   
     const response = await permissionApi.addPermissions(permissionData);
     if (response.data.responseType === "SUCCESS") {
       toast.success(response.data.message);
     }
   }
-
   const theme = createTheme();
   // Function to render the select options for addresses
   const renderAddressOptions = () => {
@@ -109,6 +121,7 @@ export default function PermissionFormForStudents() {
       <MenuItem key={addr.id} value={addr.id}>{addr.address}</MenuItem>
     ));
   };
+
   return (
     <div>
       <AppBarForStudents />
@@ -160,7 +173,6 @@ export default function PermissionFormForStudents() {
                           value={formState.permissionDates}
                           onChange={(newValue) => {
                             const newState = { ...formState };
-                            console.log(newState);
                             newState.permissionDates = newValue;
                             setFormState(newState);
                           }} />
@@ -192,7 +204,7 @@ export default function PermissionFormForStudents() {
                   />
                 </Grid>
               </Grid>
-              <Button onClick={() => addPermission(formState)} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+              <Button onClick={() => addPermission(formState)} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} disabled={!address || formState.permissionDates[0] === null || formState.permissionDates[1] === null}>
                 Add
               </Button>
             </Box>
