@@ -33,11 +33,11 @@ function App() {
             <Route path="/" element={<SignIn />} />
             <Route
               element={<MainPageForStudent />}
-              path={"/MainPageForStudent/:id"}
+              path={"/MainPageForStudent/"}
             />
             <Route
               element={<PermissionFormForStudents />}
-              path={"/PermissionFormForStudents/:id"}
+              path={"/PermissionFormForStudents/"}
             />
             <Route element={<ListStudents />} path={"/ListStudents"} />
 
@@ -45,11 +45,11 @@ function App() {
             <Route element={<ApplicantPage />} path={"/ApplicantPage"} />
             <Route
               element={<StudentProfilePage />}
-              path={"/StudentProfilePage/:id"}
+              path={"/StudentProfilePage/"}
             />
             <Route
               element={<ProfilePageForStudent />}
-              path={"/ProfilePageForStudent/:id"}
+              path={"/ProfilePageForStudent/"}
             />
             <Route element={<ListApplicant />} path={"/ListApplicant"} />
           </Routes>
