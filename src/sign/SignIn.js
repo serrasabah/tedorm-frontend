@@ -102,7 +102,7 @@ export default function SignIn() {
           navigate(`/MainPageForStudent/${id}`);
         }
         else if (messageResponse.isAuthority === "ADMIN") {
-          navigate(`/ListStudent/${id}`);
+          navigate(`/ListStudents`);
         }
       }
       else {
@@ -162,7 +162,7 @@ export default function SignIn() {
                 required
                 fullWidth
                 id="username"
-                label="username"
+                label="Username"
                 name="username"
                 autoComplete="username"
                 autoFocus
@@ -202,12 +202,10 @@ export default function SignIn() {
                   Add Applicant <AddBoxIcon />
                 </Button>
                 <ApplicantPage
-                  
                   isOpen={isAddApplicantModalOpen}
                   close={() => setAddApplicantModalOpen(false)}
                   submit={addApplicant}
                 />
-
               </Grid>
               <Copyright sx={{ mt: 5 }} />
             </Box>

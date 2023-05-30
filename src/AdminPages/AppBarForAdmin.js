@@ -8,7 +8,6 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import RoomIcon from '@mui/icons-material/Room';
@@ -96,12 +95,11 @@ const userApi = new UserApi();
               >
                 TEDORM
               </Typography>
-     
               <Typography
                 variant="h6"
                 noWrap
                 component="a"
-                href="/DinnerMenuForStudent"
+                href="/ListMenu"
                 sx={{
                   mr: 2,
                   display: { xs: "none", md: "flex" },
@@ -114,7 +112,40 @@ const userApi = new UserApi();
               >
                 Menu
               </Typography>
-
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="/ListApplicant"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "arial",
+                  fontWeight: 100,
+                  letterSpacing: ".1rem",
+                  color: "grey",
+                  textDecoration: "none",
+                }}
+              >
+                List Applicants
+              </Typography>
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="/ListStudents"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "arial",
+                  fontWeight: 100,
+                  letterSpacing: ".1rem",
+                  color: "grey",
+                  textDecoration: "none",
+                }}
+              >
+                List Student
+              </Typography>
               <Typography
                 variant="h6"
                 noWrap
@@ -137,7 +168,6 @@ const userApi = new UserApi();
                 noWrap
                 component="a"
                 href="/ListPermissions"
-        
                 sx={{
                   mr: 2,
                   display: { xs: "none", md: "flex" },

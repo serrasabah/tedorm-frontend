@@ -11,11 +11,9 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import RoomIcon from "@mui/icons-material/Room";
-import { NavLink } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import StudentProfilePages from "./ProfilePage/StudentProfilePage";
@@ -124,7 +122,7 @@ const darkTheme = createTheme({
                 variant="h6"
                 noWrap
                 component="a"
-                href="/DinnerMenuForStudent"
+                href="/ListMenuForStudent"
                 sx={{
                   mr: 2,
                   display: { xs: "none", md: "flex" },
@@ -137,7 +135,6 @@ const darkTheme = createTheme({
               >
                 Menu
               </Typography>
-
               <Typography
                 variant="h6"
                 noWrap
@@ -160,7 +157,6 @@ const darkTheme = createTheme({
                 noWrap
                 component="a"
                 href="/PermissionFormForStudents"
-        
                 sx={{
                   mr: 2,
                   display: { xs: "none", md: "flex" },
