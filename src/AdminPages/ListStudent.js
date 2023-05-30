@@ -1,24 +1,29 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
+import React, { useState, useEffect } from "react";
 import { Container } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { StudentApi } from "../api/StudentApi";
 import AppBarForStudents from "../StudentPages/AppBarForStudent";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { toast } from "react-toastify";
 import { GridActionsCellItem } from "@mui/x-data-grid-pro";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import TextField from "@mui/material/TextField";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  InputLabel,
+  FormControl,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
 function ListStudent() {
   const columns = [
@@ -59,7 +64,7 @@ function ListStudent() {
       width: 100,
       cellClassName: "actions",
       getActions: ({ id }) => {
-        //    const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+        // const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
         return [
           <GridActionsCellItem
@@ -75,11 +80,9 @@ function ListStudent() {
 
   const navigate = useNavigate();
   const [students, setStudents] = useState([]);
-  const [selectionModel, setSelectionModel] = useState();
+  const [selectionModel, setSelectionModel] = useState([]);
   const studentApi = new StudentApi();
-  const [open, setOpen] = React.useState(false);
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [open, setOpen] = useState(false);
   const [textFieldValues, setTextFieldValues] = useState({
     name: "",
     surname: "",
@@ -90,9 +93,22 @@ function ListStudent() {
     roomNumber: "",
     university: "",
     phoneNumber: "",
+    roomType: "",
+    address: "",
   });
+  const [roomType, setRoomType] = useState(""); // Move roomType state inside ListStudent component
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
-  const [password, setPassword] = useState("");
+  const handleChange = (event) => {
+    const value = event.target.value;
+    console.log(value);
+    setRoomType(value); // Update roomType state
+    setTextFieldValues((prevValues) => ({
+      ...prevValues,
+      roomType: value,
+    }));
+  };
 
   const handleTextFieldChange = (event, fieldName) => {
     let value = event.target.value;
@@ -109,6 +125,7 @@ function ListStudent() {
     const messageResponse = response.data;
     if (messageResponse.responseType === "SUCCESS") {
       toast.success(messageResponse.message);
+      await getStudents();
     } else {
       toast.error(messageResponse.message);
     }
@@ -136,26 +153,6 @@ function ListStudent() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  async function deleteCell() {
-    console.log("id" + selectionModel);
-    const selectedIDs = selectionModel;
-    const response = await studentApi.deleteStudents(selectedIDs);
-    const messageResponse = response.data;
-    console.log(messageResponse);
-    if (messageResponse.responseType === "ERROR") {
-      toast.error(messageResponse.message);
-      console.log(messageResponse);
-    } else {
-      toast.warning(messageResponse.message);
-      console.log(messageResponse);
-    }
-  }
-
-  function returnHomePage(e) {
-    e.preventDefault();
-    navigate("/ListStudents");
-  }
 
   async function getStudents() {
     const response = await studentApi.getStudents();
@@ -217,7 +214,7 @@ function ListStudent() {
             aria-labelledby="responsive-dialog-title"
           >
             <DialogTitle id="responsive-dialog-title">
-              {"Use Google's location service?"}
+              {"Add Student Information"}
             </DialogTitle>
             <DialogContent>
               <DialogContentText>
@@ -226,7 +223,7 @@ function ListStudent() {
                   sx={{
                     "& .MuiTextField-root": {
                       m: 1,
-                      width: "35ch",
+                      width: "59ch",
                     },
                   }}
                   noValidate
@@ -308,12 +305,40 @@ function ListStudent() {
                       handleTextFieldChange(event, "phoneNumber")
                     }
                   />
+                  <TextField
+                    error={textFieldValues.address === ""}
+                    id="outlined-error"
+                    label="address"
+                    value={textFieldValues.address}
+                    onChange={(event) =>
+                      handleTextFieldChange(event, "address")
+                    }
+                  />
+                  <Box>
+                    <FormControl fullWidth sx={{ m: 0.5 }}>
+                      <InputLabel id="demo-simple-select-label">
+                        Room Type
+                      </InputLabel>
+                      <Select
+                        required
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={roomType}
+                        label="RoomType"
+                        onChange={handleChange}
+                      >
+                        <MenuItem value={1}>Single room</MenuItem>
+                        <MenuItem value={2}>Double room</MenuItem>
+                        <MenuItem value={4}>Quadruple Room</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
                 </Box>
               </DialogContentText>
             </DialogContent>
             <DialogActions>
               <Button autoFocus onClick={handleClose}>
-                Disagree
+                Cancel
               </Button>
               <Button
                 variant="contained"
@@ -322,7 +347,7 @@ function ListStudent() {
                 onClick={createUser}
                 autoFocus
               >
-                Agree
+                Save
               </Button>
             </DialogActions>
           </Dialog>

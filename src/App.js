@@ -13,6 +13,9 @@ import * as React from "react";
 import { UsernameProvider } from "./context/Context";
 import ListStudents from "./AdminPages/ListStudent";
 import ProfilePageForStudent from "./AdminPages/ProfilePageForStudent";
+import ListMenu from "./MenuPages/ListMenu";
+import ListMenuForStudent from "./MenuPages/ListMenuForStudent";
+
 function App() {
   return (
     <>
@@ -52,6 +55,11 @@ function App() {
               path={"/ProfilePageForStudent/:id"}
             />
             <Route element={<ListApplicant />} path={"/ListApplicant"} />
+            <Route element={<ListMenu />} path={"/ListMenu"} />
+            <Route
+              element={<ListMenuForStudent />}
+              path={"/ListMenuForStudent"}
+            />
           </Routes>
         </UsernameProvider>
       </BrowserRouter>
