@@ -142,7 +142,7 @@ const darkTheme = createTheme({
                 variant="h6"
                 noWrap
                 component="a"
-                href="/ViewAnnouncement"
+                href="/ListAnnouncement"
                 sx={{
                   mr: 3,
                   display: { xs: "none", md: "flex" },

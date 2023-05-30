@@ -12,7 +12,7 @@ export default function AddAnnouncement() {
 
     const announcementApi = new AnnouncementApi();
     const adminApi = new UserApi();
-    const [admin, setAdmin] = useState(null); // Öğrenci verisi için state tanımlayın
+    const [admin, setAdmin] = useState(null); 
     const { id } = useParams();
     /*
         useEffect(() => {
@@ -50,7 +50,6 @@ export default function AddAnnouncement() {
         }
     }
     const theme = createTheme();
-    // Function to render the select options for addresses
 
     return (
         <div>
@@ -64,19 +63,15 @@ export default function AddAnnouncement() {
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
-                        }}
-                    >
-                        <Typography component="h1" variant="h5" sx={{ mr: 108}}>
-                       Announcements
+                        }} >
+                        <Typography component="h1" variant="h5" sx={{ mr: 108 }}>
+                            Announcement
                         </Typography>
-
                         <Box
                             sx={{
                                 display: 'flex',
                                 alignItems: 'center',
-                               
-                            }}
-                        >
+                            }} >
                             <Box
                                 component="form"
                                 noValidate
@@ -85,11 +80,10 @@ export default function AddAnnouncement() {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     alignItems: 'center',
-                                    width: '500px', // Increase the width as desired
+                                    width: '500px',
                                     height: '600px',
                                     mt: 5,
-                                }}
-                            >
+                                }}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <FormControl fullWidth xs={15}>
@@ -109,8 +103,7 @@ export default function AddAnnouncement() {
                                     marginLeft: 2,
                                 }}
                                 image={AnnouncementIcon}
-                                alt="Announcement Icon"
-                            />
+                                alt="Announcement Icon" />
                         </Box>
                     </Box>
                 </Container>

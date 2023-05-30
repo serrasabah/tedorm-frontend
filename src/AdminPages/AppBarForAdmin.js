@@ -13,9 +13,12 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import RoomIcon from '@mui/icons-material/Room';
 import Stack from '@mui/material/Stack';
+import { useNavigate, useParams } from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { UserApi } from '../api/UserApi';
+import { useState, useEffect } from "react";
 const pages = ['Home Page','Control Panel'];
-const settings = ['Profile', 'Account', 'Logout'];
+const settings = ['Profile', 'Logout'];
 const darkTheme = createTheme({
   palette: {
     mode: 'light',
@@ -27,6 +30,9 @@ const darkTheme = createTheme({
 function AppBarForAdmin() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+const { id } = useParams();
+const [user, setUser] = useState(null); // Öğrenci verisi için state tanımlayın
+const userApi = new UserApi();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -43,7 +49,28 @@ function AppBarForAdmin() {
     setAnchorElUser(null);
   };
 
+  useEffect(() => {
+    // Component yüklendiğinde öğrenci verisini almak için useEffect kullanın
+    async function fetchUser() {
+      try {
+        const response = await userApi.getUserById(id); // Spring Boot'tan öğrenci verisini alın
+        setUser(response.data); // Veriyi state'e kaydedin
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
+    fetchUser();
+  }, [id]);
+    const navigate = useNavigate();
+  const handleProfileClick = (setting) => {
+    if (setting === "Logout") {
+      navigate(`/`); // Redirect to the sign-in page
+    } else {
+      navigate(`//${id}`);
+    }
+    handleCloseUserMenu();
+  };
   return (
     <Stack spacing={2} sx={{ flexGrow: 1 }}>
       <ThemeProvider theme={darkTheme}>
@@ -69,7 +96,60 @@ function AppBarForAdmin() {
               >
                 TEDORM
               </Typography>
+     
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="/DinnerMenuForStudent"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "arial",
+                  fontWeight: 100,
+                  letterSpacing: ".1rem",
+                  color: "grey",
+                  textDecoration: "none",
+                }}
+              >
+                Menu
+              </Typography>
 
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="/AddAnnouncement"
+                sx={{
+                  mr: 3,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "arial",
+                  fontWeight: 100,
+                  letterSpacing: ".1rem",
+                  color: "grey",
+                  textDecoration: "none",
+                }}
+              >
+                Announcement
+              </Typography>
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="/ListPermissions"
+        
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "arial",
+                  fontWeight: 100,
+                  letterSpacing: ".1rem",
+                  color: "grey",
+                  textDecoration: "none",
+                }}
+              >
+                Take Permission
+              </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
                   size="large"
@@ -125,18 +205,10 @@ function AppBarForAdmin() {
               >
                 TEDORM
               </Typography>
-              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                {pages.map((page) => (
-                  <Button
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'grey', display: 'block' }}
-                  >
-                    {page}
-                  </Button>
-                ))}
-                    
-              </Box>
+              <Box
+                sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
+              ></Box>
+             
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
