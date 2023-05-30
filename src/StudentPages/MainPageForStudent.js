@@ -8,17 +8,16 @@ import { useParams, useNavigate } from "react-router-dom";
 import PermissionFormForStudents from "./PermissionPage/PermissionFormForStudents"; 
 function MainPageForStudent() {
 
-  const [user, setUser] = useState(null); // Öğrenci verisi için state tanımlayın
+  const [user, setUser] = useState(null); 
   const userApi = new UserApi();
 
   const { id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
-    // Component yüklendiğinde öğrenci verisini almak için useEffect kullanın
     async function fetchUser() {
       try {
-        const response = await userApi.getUserById(id); // Spring Boot'tan öğrenci verisini alın
-        setUser(response.data); // Veriyi state'e kaydedin
+        const response = await userApi.getUserById(id); 
+        setUser(response.data); 
       } catch (error) {
         console.log(error);
       }
@@ -26,6 +25,7 @@ function MainPageForStudent() {
 
     fetchUser();
   }, [id]);
+
   const handleProfileClick = () => {
     navigate(`/StudentProfilePage/${id}`);
   };

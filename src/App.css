@@ -13,6 +13,10 @@
   }
 }
 
+.custom-header {
+    font-size: 30px; /* Increase the font size to your desired value */
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

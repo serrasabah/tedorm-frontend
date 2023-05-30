@@ -13,6 +13,8 @@ import * as React from "react";
 import { UsernameProvider } from "./context/Context";
 import ListStudents from "./AdminPages/ListStudent";
 import ProfilePageForStudent from "./AdminPages/ProfilePageForStudent";
+import AddAnnouncement from "./AdminPages/AnnouncementPage/AddAnnouncement";
+import ListAnnouncement from "./StudentPages/AnnouncementPage/ListAnnouncements";
 function App() {
   return (
     <>
@@ -31,26 +33,15 @@ function App() {
         <UsernameProvider>
           <Routes>
             <Route path="/" element={<SignIn />} />
-            <Route
-              element={<MainPageForStudent />}
-              path={"/MainPageForStudent/:id"}
-            />
-            <Route
-              element={<PermissionFormForStudents />}
-              path={"/PermissionFormForStudents/:id"}
-            />
+            <Route element={<MainPageForStudent />} path={"/MainPageForStudent/:id"} />
+            <Route element={<PermissionFormForStudents />} path={"/PermissionFormForStudents/:id"} />
             <Route element={<ListStudents />} path={"/ListStudents"} />
-
             <Route element={<ListPermissions />} path={"/ListPermissions"} />
             <Route element={<ApplicantPage />} path={"/ApplicantPage"} />
-            <Route
-              element={<StudentProfilePage />}
-              path={"/StudentProfilePage/:id"}
-            />
-            <Route
-              element={<ProfilePageForStudent />}
-              path={"/ProfilePageForStudent/:id"}
-            />
+            <Route element={<StudentProfilePage />} path={"/StudentProfilePage/:id"} />
+            <Route element={<ProfilePageForStudent />} path={"/ProfilePageForStudent/:id"}/>
+            <Route element={<AddAnnouncement />} path={"/AddAnnouncement"} />
+            <Route element={<ListAnnouncement />} path={"/ListAnnouncement"}/>
             <Route element={<ListApplicant />} path={"/ListApplicant"} />
           </Routes>
         </UsernameProvider>
