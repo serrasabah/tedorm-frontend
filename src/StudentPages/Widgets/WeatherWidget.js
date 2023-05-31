@@ -34,7 +34,7 @@ const WeatherWidget = () => {
   const weatherIcon = getWeatherIcon(condition.icon);
 
   return (
-    <Box
+    <Box 
       display="flex"
       flexDirection="column"
       alignItems="center"
@@ -42,8 +42,9 @@ const WeatherWidget = () => {
       height={200}
       width={200}
       backgroundColor="#e0e0e0"
-      borderRadius={10}
+      borderRadius={5}
       padding={2}
+      style = {{ background: 'linear-gradient(to right bottom, #FAFF89, #EA72AD)' }}
     >
       <Typography variant="h6">{name}</Typography>
       <Typography variant="body1">{region}</Typography>

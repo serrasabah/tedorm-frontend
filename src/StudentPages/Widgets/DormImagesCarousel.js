@@ -6,11 +6,11 @@ const DormImagesCarousel = () => {
   
   // Yurt resimlerini statik olarak çekmek için kullanılacak kodlar:
   const images = [
-    { id: 1, image: 'dorm1.jpg' },
-    { id: 2, image: 'dorm2.jpg' },
-    { id: 3, image: 'dorm3.jpg' },
-    { id: 4, image: 'dorm4.jpg' },
-    { id: 5, image: 'dorm5.jpg' },
+    { id: 1, image: '/images/dorm1.jpg' },
+    { id: 2, image: '/images/dorm2.jpg' },
+    { id: 3, image: '/images/dorm3.jpg' },
+    { id: 4, image: '/images/dorm4.jpg' },
+    { id: 5, image: '/images/dorm5.jpg' },
   ];
 
   // Yurt resimlerini API ile çekmek için kullanılacak kodlar:
@@ -33,8 +33,8 @@ const DormImagesCarousel = () => {
             data={images}
             time={3000}
             width="850px"
-            height="500px"
-            radius="30px"
+            height="550px"
+            radius="20px"
             slideNumber={false}
             captionPosition="bottom"
             automatic={true}
@@ -43,13 +43,13 @@ const DormImagesCarousel = () => {
             pauseIconSize="40px"
             slideBackgroundColor="darkgrey"
             slideImageFit="cover"
-            thumbnails={true}
+            thumbnails={false}
             thumbnailWidth="100px"
             style={{
               textAlign: "center",
               maxWidth: "850px",
-              maxHeight: "500px",
-              margin: "40px auto",
+              maxHeight: "550px",
+              margin: "0px auto",
             }}
           />
     </div>
