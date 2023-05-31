@@ -24,7 +24,6 @@ function AppBarForStudents() {
   
 const [user, setUser] = useState(null); // Öğrenci verisi için state tanımlayın
 const userApi = new UserApi();
-
 const { id } = useParams();
 const pages = ["Home Page", "Menu", "Request", "Announcement"];
 const settings = ["Profile", "Logout"];
@@ -68,6 +67,7 @@ const darkTheme = createTheme({
 
     fetchUser();
   }, [id]);
+
   const navigate = useNavigate();
   const handleProfileClick = (setting) => {
     if (setting === "Logout") {
@@ -77,6 +77,7 @@ const darkTheme = createTheme({
     }
     handleCloseUserMenu();
   };
+
   return (
     <Stack spacing={2} sx={{ flexGrow: 1 }}>
       <ThemeProvider theme={darkTheme}>
@@ -105,7 +106,8 @@ const darkTheme = createTheme({
                 variant="h6"
                 noWrap
                 component="a"
-                href="/MainPageForStudent"
+                const 
+                onClick={() => navigate(`/MainPageForStudent/${id}`)}
                 sx={{
                   mr: 3,
                   display: { xs: "none", md: "flex" },
@@ -122,7 +124,7 @@ const darkTheme = createTheme({
                 variant="h6"
                 noWrap
                 component="a"
-                href="/ListMenuForStudent"
+                onClick={() => navigate(`/ListMenuForStudent/${id}`)}
                 sx={{
                   mr: 2,
                   display: { xs: "none", md: "flex" },
@@ -139,7 +141,7 @@ const darkTheme = createTheme({
                 variant="h6"
                 noWrap
                 component="a"
-                href="/ListAnnouncement"
+                onClick={() => navigate(`/ListAnnouncement/${id}`)}
                 sx={{
                   mr: 3,
                   display: { xs: "none", md: "flex" },
@@ -156,7 +158,7 @@ const darkTheme = createTheme({
                 variant="h6"
                 noWrap
                 component="a"
-                href="/PermissionFormForStudents"
+                onClick={() => navigate(`/PermissionFormForStudents/${id}`)}
                 sx={{
                   mr: 2,
                   display: { xs: "none", md: "flex" },

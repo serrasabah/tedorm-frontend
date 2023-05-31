@@ -17,6 +17,7 @@ import AddAnnouncement from "./AdminPages/AnnouncementPage/AddAnnouncement";
 import ListAnnouncement from "./StudentPages/AnnouncementPage/ListAnnouncements";
 import ListMenu from "./MenuPages/ListMenu";
 import ListMenuForStudent from "./MenuPages/ListMenuForStudent";
+import ListAdmin from "./AdminPages/ListAdmin";
 function App() {
   return (
     <>
@@ -43,10 +44,11 @@ function App() {
             <Route element={<StudentProfilePage />} path={"/StudentProfilePage/:id"} />
             <Route element={<ProfilePageForStudent />} path={"/ProfilePageForStudent/:id"}/>
             <Route element={<AddAnnouncement />} path={"/AddAnnouncement"} />
-            <Route element={<ListAnnouncement />} path={"/ListAnnouncement"}/>
+            <Route element={<ListAnnouncement />} path={"/ListAnnouncement/:id"}/>
             <Route element={<ListApplicant />} path={"/ListApplicant"} />
             <Route element={<ListMenu />} path={"/ListMenu"} />
-            <Route element={<ListMenuForStudent />} path={"/ListMenuForStudent"} />
+            <Route element={<ListMenuForStudent />} path={"/ListMenuForStudent/:id"} />
+            <Route element={<ListAdmin/>} path={"/ListAdmin"} />
           </Routes>
         </UsernameProvider>
       </BrowserRouter>

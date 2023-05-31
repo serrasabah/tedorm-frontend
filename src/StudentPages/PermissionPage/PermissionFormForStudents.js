@@ -15,6 +15,7 @@ import { AddPermissionApi } from "../../api/AddPermissionApi";
 import { useParams } from "react-router-dom";
 import { StudentApi } from '../../api/StudentApi';
 import PermissionImage from "./PermissionImage.png";
+import { UserApi } from '../../api/UserApi';
 
 export default function PermissionFormForStudents() {
   const permissionApi = new AddPermissionApi();
@@ -22,7 +23,8 @@ export default function PermissionFormForStudents() {
   const studentApi = new StudentApi();
   const [student, setStudent] = useState(null);
   const { id } = useParams();
-
+  const [user, setUser] = useState(null);
+  const userApi = new UserApi();
   useEffect(() => {
     async function fetchStudent() {
       try {
@@ -116,7 +118,18 @@ export default function PermissionFormForStudents() {
       <MenuItem key={addr.id} value={addr.id}>{addr.address}</MenuItem>
     ));
   };
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const response = await userApi.getUserById(id);
+        setUser(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
+    fetchUser();
+  }, [id]);
   return (
     <div>
       <AppBarForStudents />
