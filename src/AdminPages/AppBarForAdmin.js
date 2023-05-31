@@ -64,16 +64,15 @@ const userApi = new UserApi();
     const navigate = useNavigate();
   const handleProfileClick = (setting) => {
     if (setting === "Logout") {
-      navigate(`/`); // Redirect to the sign-in page
+      navigate('/'); // Redirect to the sign-in page
     } else {
-      navigate(`//${id}`);
+      navigate(`/ListAdmin`);
     }
     handleCloseUserMenu();
   };
   return (
     <Stack spacing={2} sx={{ flexGrow: 1 }}>
       <ThemeProvider theme={darkTheme}>
-
         <AppBar position="static">
           <Container maxWidth="xl">
             <Toolbar disableGutters>
@@ -161,7 +160,7 @@ const userApi = new UserApi();
                   textDecoration: "none",
                 }}
               >
-                Announcement
+                Add Announcement
               </Typography>
               <Typography
                 variant="h6"
@@ -178,7 +177,7 @@ const userApi = new UserApi();
                   textDecoration: "none",
                 }}
               >
-                Take Permission
+                List Permission
               </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
@@ -262,7 +261,7 @@ const userApi = new UserApi();
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <MenuItem key={setting} onClick={handleProfileClick}>
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}

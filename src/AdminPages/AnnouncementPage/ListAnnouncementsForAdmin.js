@@ -87,7 +87,7 @@ function ListAnnouncementForAdmin() {
                             }}
                             orientation="vertical"
                             slots={{ toolbar: GridToolbar }}
-                            rows={admin}
+                            rows={announcement}
                             columns={columns}
                             disableSelectionOnClick
                             selectionModel={selectionModel}
