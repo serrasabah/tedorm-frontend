@@ -93,7 +93,9 @@ function ListApplicant() {
     console.log(addStudentRequest);
 
     try {
-      const response = await studentApi.addStudents(addStudentRequest);
+      const response = await studentApi.addApplicantToStudent(
+        addStudentRequest
+      );
       const messageResponse = response.data;
       if (messageResponse.responseType === "SUCCESS") {
         toast.success(messageResponse.message);

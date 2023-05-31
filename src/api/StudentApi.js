@@ -19,4 +19,7 @@ export class StudentApi {
   changePassword(id, formState) {
     return axios.post("/students/changePassword/" + id, formState);
   }
+  addApplicantToStudent(formState) {
+    return axios.post("/students/addApplicantToStudent", formState);
+  }
 }
