@@ -20,16 +20,16 @@ const WelcomeMessage = ({ user }) => {
       <Grid container spacing={2} justifyContent="space-between" alignItems="center">
         <Grid item>
           <Typography variant="h4" fontFamily={font} sx={{ fontWeight: 'bold' }}>
-            Hoşgeldiniz, {user && user.name}!
+            Welcome, {user && user.username}!
           </Typography>
         </Grid>
         <Grid item>
           <Box display="flex" flexDirection="column" alignItems="flex-end">
             <Typography variant="subtitle1" fontFamily={font}>
-              Tarih: {currentDate.toLocaleDateString()}
+              Date: {currentDate.toLocaleDateString()}
             </Typography>
             <Typography variant="subtitle1" fontFamily={font}>
-              Saat: {currentDate.toLocaleTimeString()}
+              Time: {currentDate.toLocaleTimeString()}
             </Typography>
           </Box>
         </Grid>

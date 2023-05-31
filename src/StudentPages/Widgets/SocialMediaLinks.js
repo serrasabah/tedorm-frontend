@@ -18,7 +18,7 @@ const SocialMediaLinks = () => {
                 rel="noopener noreferrer"
                 fullWidth
               >
-                Internet Sitesi
+                Web Page
               </Button>
             </Grid>
             <Grid item>
