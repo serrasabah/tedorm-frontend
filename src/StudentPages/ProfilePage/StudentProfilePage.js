@@ -5,15 +5,14 @@ import {
   Container, Stack, Typography, Unstable_Grid2 as Grid
 } from '@mui/material';
 import { AccountProfile } from './AccountProfile';
-import { AccountProfileDetails } from './AccountProfileDetails';
 import AppBarForStudents from '../AppBarForStudent';
 import { useState, useEffect } from "react";
 import { StudentApi } from "../../api/StudentApi";
 import ViewDocuments from '../ViewDocuments';
 import { useParams } from "react-router-dom";
-
 import * as React from "react";
-function StudentProfilePages() {
+import { UserApi } from '../../api/UserApi';
+function StudentProfilePage() {
 
   const [student, setStudent] = useState(null);
   const studentApi = new StudentApi();
@@ -25,11 +24,10 @@ function StudentProfilePages() {
   const { id } = useParams();
 
   useEffect(() => {
-    // Component yüklendiğinde öğrenci verisini almak için useEffect kullanın
     async function fetchStudent() {
       try {
-        const response = await studentApi.getStudentById(id); // Spring Boot'tan öğrenci verisini alın
-        setStudent(response.data); // Veriyi state'e kaydedin
+        const response = await studentApi.getStudentById(id); 
+        setStudent(response.data); 
       } catch (error) {
         console.log(error);
       }
@@ -120,4 +118,4 @@ function StudentProfilePages() {
   );
 }
 
-export default StudentProfilePages;
+export default StudentProfilePage;

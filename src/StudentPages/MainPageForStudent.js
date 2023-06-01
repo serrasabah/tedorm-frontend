@@ -21,6 +21,9 @@ function MainPageForStudent() {
       <Container maxWidth="lg">
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
+            <WelcomeMessage />
+          </Grid>
+          <Grid item xs={12} sm={6}>
             <DormImagesCarousel />
           </Grid>
           <Grid item xs={12} sm={6}>

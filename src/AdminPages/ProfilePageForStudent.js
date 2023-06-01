@@ -7,7 +7,6 @@ import {
   Typography, Divider,
   Unstable_Grid2 as Grid,
 } from "@mui/material";
-import { AccountProfileDetails } from "../StudentPages/ProfilePage/AccountProfileDetails";
 import { AccountProfile } from "../StudentPages/ProfilePage/AccountProfile";
 import AppBarForStudents from "../StudentPages/AppBarForStudent";
 import { useState, useEffect } from "react";
@@ -15,7 +14,6 @@ import { StudentApi } from "../api/StudentApi";
 import ViewDocuments from "../StudentPages/ViewDocuments";
 import { useParams } from "react-router-dom";
 import { DeleteStudent } from "../StudentPages/ProfilePage/DeleteStudent";
-import { ChangePassword } from "../StudentPages/ProfilePage/ChangePassword";
 
 function ProfilePageForStudent() {
   const [student, setStudent] = useState(null); // Öğrenci verisi için state tanımlayın

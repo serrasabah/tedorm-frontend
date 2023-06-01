@@ -4,6 +4,9 @@ export class AddPermissionApi {
   getPermissions() {
     return axios.get("/permissions");
   }
+  getPermissionsId(id) {
+    return axios.get("/permissions/" + id);
+  }
 
   addPermissions(formState) {
     return axios.post("/permissions", formState);

@@ -51,19 +51,6 @@ function AppBarForAdmin() {
     setAnchorElUser(null);
   };
 
-  useEffect(() => {
-    // Component yüklendiğinde öğrenci verisini almak için useEffect kullanın
-    async function fetchUser() {
-      try {
-        const response = await userApi.getUserById(id); // Spring Boot'tan öğrenci verisini alın
-        setUser(response.data); // Veriyi state'e kaydedin
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    fetchUser();
-  }, [id]);
   const navigate = useNavigate();
   const handleProfileClick = (setting) => {
     if (setting === "Logout") {
@@ -268,7 +255,10 @@ function AppBarForAdmin() {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleProfileClick}>
+                    <MenuItem
+                      key={setting}
+                      onClick={() => handleProfileClick(setting)}
+                    >
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}

@@ -20,7 +20,7 @@ const WelcomeMessage = ({ user }) => {
       <Grid container spacing={2} justifyContent="space-between" alignItems="center">
         <Grid item>
           <Typography variant="h4" fontFamily={font} sx={{ fontWeight: 'bold' }}>
-            Welcome, {user && user.username}!
+            Welcome!
           </Typography>
         </Grid>
         <Grid item>

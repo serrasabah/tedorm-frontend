@@ -64,7 +64,7 @@ export const AccountProfileDetails = ({ student }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await studentApi.updateStudents(student.id, values);
+    const response = await studentApi.updateStudents(id, values);
     const messageResponse = response.data;
     if (messageResponse.responseType === "SUCCESS") {
       toast.success(messageResponse.message);
