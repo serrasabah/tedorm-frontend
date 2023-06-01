@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -21,23 +20,25 @@ import StudentProfilePages from "./ProfilePage/StudentProfilePage";
 import { UserApi } from "../api/UserApi";
 
 function AppBarForStudents() {
-  
-const [user, setUser] = useState(null); // Öğrenci verisi için state tanımlayın
-const userApi = new UserApi();
-const { id } = useParams();
-const pages = ["Home Page", "Menu", "Request", "Announcement"];
-const settings = ["Profile", "Logout"];
-const darkTheme = createTheme({
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#fff",
+  const [user, setUser] = useState(null); // Öğrenci verisi için state tanımlayın
+  const userApi = new UserApi();
+  const { id } = useParams();
+  const pages = ["Home Page", "Menu", "Request", "Announcement"];
+  const settings = ["Profile", "Logout"];
+  const darkTheme = createTheme({
+    palette: {
+      mode: "light",
+      primary: {
+        main: "#fff",
+      },
     },
-  },
-});
+  });
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [username, setUsername] = useState(
+    window.localStorage.getItem("username")
+  );
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -69,9 +70,11 @@ const darkTheme = createTheme({
   }, [id]);
 
   const navigate = useNavigate();
+
   const handleProfileClick = (setting) => {
     if (setting === "Logout") {
-      navigate(`/`); // Redirect to the sign-in page
+      window.localStorage.clear();
+      navigate("/"); // Redirect to the sign-in page
     } else {
       navigate(`/StudentProfilePage/${id}`);
     }
@@ -106,7 +109,7 @@ const darkTheme = createTheme({
                 variant="h6"
                 noWrap
                 component="a"
-                const 
+                const
                 onClick={() => navigate(`/MainPageForStudent/${id}`)}
                 sx={{
                   mr: 3,
@@ -259,7 +262,10 @@ const darkTheme = createTheme({
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleProfileClick}>
+                    <MenuItem
+                      key={setting}
+                      onClick={() => handleProfileClick(setting)}
+                    >
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}
