@@ -1,8 +1,6 @@
 import * as React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import DeleteIcon from '@mui/icons-material/Delete';
 import { Container, Typography, useMediaQuery, Box, Stack, useTheme } from "@mui/material";
 import { AnnouncementApi } from "../../api/AnnouncementApi";
 import AppBarForStudents from "../AppBarForStudent";
@@ -16,10 +14,9 @@ function ListAnnouncement() {
     const announcementApi = new AnnouncementApi();
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-    const [student, setStudent] = useState(null);
     const studentApi = new StudentApi();
     const { id } = useParams();
-
+    const [student, setStudent] = useState(null);
     useEffect(() => {
         async function fetchStudent() {
             try {
@@ -55,7 +52,7 @@ function ListAnnouncement() {
         {
             field: "message",
             headerName: "Message",
-            width: 350,
+            width: 550,
         },
     ];
 

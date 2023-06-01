@@ -1,267 +1,107 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
+import * as React from 'react';
+import { AppBar, Toolbar, Typography, Tooltip, Avatar, Menu, MenuItem, Box } from '@mui/material';
 import RoomIcon from "@mui/icons-material/Room";
-import Stack from "@mui/material/Stack";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import StudentProfilePages from "./ProfilePage/StudentProfilePage";
-
-import { UserApi } from "../api/UserApi";
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function AppBarForStudents() {
-  const [user, setUser] = useState(null); // Öğrenci verisi için state tanımlayın
-  const userApi = new UserApi();
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
+
   const { id } = useParams();
-  const pages = ["Home Page", "Menu", "Request", "Announcement"];
-  const settings = ["Profile", "Logout"];
-  const darkTheme = createTheme({
-    palette: {
-      mode: "light",
-      primary: {
-        main: "#fff",
-      },
-    },
-  });
+  const navigate = useNavigate();
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [username, setUsername] = useState(
-    window.localStorage.getItem("username")
-  );
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
 
-  const navigate = useNavigate();
-
-  const handleProfileClick = (setting) => {
-    if (setting === "Logout") {
-      window.localStorage.clear();
-      navigate("/"); // Redirect to the sign-in page
-    } else {
-      navigate(`/StudentProfilePage/${id}`);
-    }
+  const handleProfileClick = () => {
+    navigate(`/StudentProfilePage/${id}`);
     handleCloseUserMenu();
   };
 
+  const handleLogOutClick = () => {
+    window.localStorage.clear();
+    navigate("/");
+    handleCloseUserMenu();
+  };
+
+  const pages = ["Home Page", "Menu", "Announcement", "Take Permission"];
+  const links = [`/MainPageForStudent/${id}`, `/ListMenuForStudent/${id}`, `/ListAnnouncement/${id}`, `/PermissionFormForStudents/${id}`];
+
   return (
-    <Stack spacing={2} sx={{ flexGrow: 1 }}>
-      <ThemeProvider theme={darkTheme}>
-        <AppBar position="static">
-          <Container maxWidth="xl">
-            <Toolbar disableGutters>
-              <RoomIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="fixed" sx={{ backgroundColor: '#012169' }}>
+        <Toolbar>
+          <RoomIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <Typography variant="h6" sx={{ flexGrow: 1, userSelect: 'none', fontWeight: 'bold', }}>
+            TEDORM
+          </Typography>
+          <Box sx={{ flexGrow: 50, display: 'flex', justifyContent: 'center' }}>
+            {pages.map((page, index) => (
               <Typography
                 variant="h6"
-                noWrap
-                component="a"
-                href="/"
+                component="div"
                 sx={{
-                  mr: 2,
-                  display: { xs: "none", md: "flex" },
-                  fontFamily: "monospace",
-                  fontWeight: 900,
-                  letterSpacing: ".3rem",
-                  color: "grey",
-                  textDecoration: "none",
+                  marginLeft: 0.5,
+                  marginRight: 0.5,
+                  color: 'white',
+                  backgroundColor: selectedItem === index ? '#011950' : 'transparent',
+                  '&:hover': {
+                    backgroundColor: '#011950',
+                  },
+                  padding: 3,
+                  borderRadius: 0,
+                  userSelect: 'none',
+                  opacity: 0.8,
                 }}
+                onMouseEnter={() => setSelectedItem(index)}
+                onMouseLeave={() => setSelectedItem(null)}
+                onClick={() => navigate(links[index])}
               >
-                TEDORM
+                {page}
               </Typography>
-              <Typography
-                variant="h6"
-                noWrap
-                component="a"
-                const
-                onClick={() => navigate(`/MainPageForStudent/${id}`)}
-                sx={{
-                  mr: 3,
-                  display: { xs: "none", md: "flex" },
-                  fontFamily: "arial",
-                  fontWeight: 100,
-                  letterSpacing: ".1rem",
-                  color: "grey",
-                  textDecoration: "none",
-                }}
-              >
-                Home Page
-              </Typography>
-              <Typography
-                variant="h6"
-                noWrap
-                component="a"
-                onClick={() => navigate(`/ListMenuForStudent/${id}`)}
-                sx={{
-                  mr: 2,
-                  display: { xs: "none", md: "flex" },
-                  fontFamily: "arial",
-                  fontWeight: 100,
-                  letterSpacing: ".1rem",
-                  color: "grey",
-                  textDecoration: "none",
-                }}
-              >
-                Menu
-              </Typography>
-              <Typography
-                variant="h6"
-                noWrap
-                component="a"
-                onClick={() => navigate(`/ListAnnouncement/${id}`)}
-                sx={{
-                  mr: 3,
-                  display: { xs: "none", md: "flex" },
-                  fontFamily: "arial",
-                  fontWeight: 100,
-                  letterSpacing: ".1rem",
-                  color: "grey",
-                  textDecoration: "none",
-                }}
-              >
-                Announcement
-              </Typography>
-              <Typography
-                variant="h6"
-                noWrap
-                component="a"
-                onClick={() => navigate(`/PermissionFormForStudents/${id}`)}
-                sx={{
-                  mr: 2,
-                  display: { xs: "none", md: "flex" },
-                  fontFamily: "arial",
-                  fontWeight: 100,
-                  letterSpacing: ".1rem",
-                  color: "grey",
-                  textDecoration: "none",
-                }}
-              >
-                Take Permission
-              </Typography>
-              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleOpenNavMenu}
-                  color="black"
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorElNav}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "left",
-                  }}
-                  open={Boolean(anchorElNav)}
-                  onClose={handleCloseNavMenu}
-                  sx={{
-                    display: { xs: "block", md: "none" },
-                  }}
-                >
-                  {pages.map((page) => (
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center" href="/Pre-registration">
-                        {page}
-                      </Typography>
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Box>
-              <RoomIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-              <Typography
-                variant="h5"
-                noWrap
-                component="a"
-                href="/"
-                sx={{
-                  mr: 2,
-                  display: { xs: "flex", md: "none" },
-                  flexGrow: 1,
-                  fontFamily: "monospace",
-                  fontWeight: 700,
-                  letterSpacing: ".3rem",
-                  color: "grey",
-                  textDecoration: "none",
-                }}
-              >
-                TEDORM
-              </Typography>
-
-              <Box
-                sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
-              ></Box>
-
-              <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/2.jpg"
-                    />
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: "45px" }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  {settings.map((setting) => (
-                    <MenuItem
-                      key={setting}
-                      onClick={() => handleProfileClick(setting)}
-                    >
-                      <Typography textAlign="center">{setting}</Typography>
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Box>
-            </Toolbar>
-          </Container>
-        </AppBar>
-      </ThemeProvider>
-    </Stack>
+            ))}
+          </Box>
+          <Tooltip title="Open settings">
+            <Avatar
+              alt="Remy Sharp"
+              src="/static/images/avatar/2.jpg"
+              onClick={handleOpenUserMenu}
+              sx={{
+                cursor: 'pointer',
+                marginLeft: 2,
+              }}
+            />
+          </Tooltip>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+            sx={{ marginTop: '25px' }}
+          >
+            <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
+            <MenuItem onClick={handleLogOutClick}>Log Out</MenuItem>
+          </Menu>
+        </Toolbar>
+      </AppBar>
+      <Toolbar />
+    </Box>
   );
 }
+
 export default AppBarForStudents;

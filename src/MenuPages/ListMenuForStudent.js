@@ -5,25 +5,9 @@ import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
 import { StudentApi } from "../api/StudentApi";
 import AppBarForStudents from "../StudentPages/AppBarForStudent";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { toast } from "react-toastify";
-import { GridActionsCellItem } from "@mui/x-data-grid-pro";
-import DialogContentText from "@mui/material/DialogContentText";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField,
-  InputLabel,
-  FormControl,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Box,} from "@mui/material";
 import { MenuApi } from "../api/MenuApi";
 import { useParams } from "react-router-dom";
 
@@ -96,7 +80,7 @@ function ListMenuForStudent() {
     <div>
       <AppBarForStudents />
       <Container>
-        <Box sx={{ width: "100%", m: "2rem" }}>
+        <Box sx={{ width: "100%", m: "2rem", margin: "2rem auto 0"}}>
           <Stack direction="row" spacing={1}></Stack>
           <Box sx={{ height: 600, mt: 1 }}>
             <DataGrid

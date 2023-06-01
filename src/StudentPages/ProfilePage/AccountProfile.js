@@ -9,7 +9,6 @@ import {
   Typography,
 } from "@mui/material";
 import * as React from "react";
-import { Context } from "../../context/Context";
 import UploadFileForStudent from "./UploadFileForStudent";
 import StudentAvatar from "../StudentAvatar";
 

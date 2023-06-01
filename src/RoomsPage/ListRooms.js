@@ -236,7 +236,7 @@ function ListRooms() {
     <div>
       <AppBarForAdmin />
       <Container>
-        <Box sx={{ width: "105%", m: "2rem" }}>
+        <Box sx={{ width: "55%",  margin: "2rem auto 0"}}>
           <Stack direction="row" spacing={1}></Stack>
           <Box sx={{ height: 600, mt: 1 }}>
             <DataGrid
@@ -264,7 +264,7 @@ function ListRooms() {
               }}
             />
           </Box>
-          <Button variant="outlined" onClick={handleClickOpen}>
+          <Button sx={{  mt: 3 }}variant="outlined" onClick={handleClickOpen}>
             Add Room
           </Button>
           <Dialog

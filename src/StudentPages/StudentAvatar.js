@@ -1,18 +1,12 @@
 import * as React from "react";
 import { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import { toast } from "react-toastify";
 import { FileApi } from "../api/FileApi";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useParams } from "react-router-dom";
 
@@ -76,11 +70,11 @@ export default function StudentAvatar() {
   return (
     <>
       <div>
-        <Button  sx={{
-                          width: "100%",
-                          marginLeft : "75%",
-                        }}
-                        variant="outlined" onClick={handleClickOpen}>
+        <Button sx={{
+          width: "100%",
+          marginLeft: "75%",
+        }}
+          variant="outlined" onClick={handleClickOpen}>
           Upload Image
         </Button>
         <Dialog

@@ -242,7 +242,7 @@ function ListMenu() {
     <div>
       <AppBarForAdmin/>
       <Container>
-        <Box sx={{ width: "105%", m: "2rem" }}>
+        <Box sx={{ width: "105%", margin: "2rem auto 0"}}>
           <Stack direction="row" spacing={1}></Stack>
           <Box sx={{ height: 600, mt: 1 }}>
             <DataGrid
@@ -270,7 +270,7 @@ function ListMenu() {
               }}
             />
           </Box>
-          <Button variant="outlined" onClick={handleClickOpen}>
+          <Button    sx={{ m: 4, }} variant="outlined" onClick={handleClickOpen}>
             Add Menu
           </Button>
           <Dialog

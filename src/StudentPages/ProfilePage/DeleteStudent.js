@@ -1,37 +1,22 @@
-import { useCallback, useState } from "react";
 import {
-  Box,
   Button,
   Card,
   CardActions,
-  CardContent,
   CardHeader,
   Divider,
-  TextField,
   Unstable_Grid2 as Grid,
 } from "@mui/material";
 import * as React from "react";
-import { useParams } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
 import { StudentApi } from "../../api/StudentApi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export const DeleteStudent = ({ student }) => {
-  const [formState, setFormState] = useState({});
   const [open, setOpen] = React.useState(false);
-  const { id } = useParams();
   const studentApi = new StudentApi();
   const navigate = useNavigate();
 
-  /*const [values, setValues] = useState({
-    university: student.university,
-    email: student.email,
-    phoneNumber: student.phoneNumber,
-    roomNumber: student.roomNumber,
-  });
-*/
   const handleClickOpen = () => {
     setOpen(true);
   };

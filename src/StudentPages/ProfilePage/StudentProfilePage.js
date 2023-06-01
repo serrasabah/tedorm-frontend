@@ -1,5 +1,3 @@
-
-
 import {
   Box, Card, CardContent, Divider,
   Container, Stack, Typography, Unstable_Grid2 as Grid
@@ -11,7 +9,6 @@ import { StudentApi } from "../../api/StudentApi";
 import ViewDocuments from '../ViewDocuments';
 import { useParams } from "react-router-dom";
 import * as React from "react";
-import { UserApi } from '../../api/UserApi';
 function StudentProfilePage() {
 
   const [student, setStudent] = useState(null);

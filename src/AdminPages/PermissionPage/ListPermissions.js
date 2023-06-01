@@ -132,7 +132,7 @@ function ListPermissions() {
         <div>
             <AppBarForAdmin />
             <Container>
-                <Box sx={{ width: "90%", m: "2rem" }}>
+                <Box sx={{ width: "90%", m: "2rem", margin: "2rem auto 0" }}>
                     <Stack direction="row" spacing={1}></Stack>
                     <Box sx={{ height: 600, mt: 1 }}>
                         <DataGrid
