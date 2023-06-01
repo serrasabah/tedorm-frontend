@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AppBarForStudents from "./AppBarForStudent";
-import { Container, Paper, Grid } from "@mui/material";
+import { Container,Typography, Paper, Grid } from "@mui/material";
 import { UserApi } from "../api/UserApi";
 import { useParams, useNavigate } from "react-router-dom";
 import WeatherWidget from "./Widgets/WeatherWidget";
@@ -20,9 +20,9 @@ function MainPageForStudent() {
       <AppBarForStudents {...id} />
       <Container maxWidth="lg">
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
+          <Typography variant="h4" gutterBottom>
             <WelcomeMessage />
-          </Grid>
+          </Typography>
           <Grid item xs={12} sm={6}>
             <DormImagesCarousel />
           </Grid>
