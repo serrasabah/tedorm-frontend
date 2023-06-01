@@ -1,37 +1,40 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import RoomIcon from '@mui/icons-material/Room';
-import Stack from '@mui/material/Stack';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import RoomIcon from "@mui/icons-material/Room";
+import Stack from "@mui/material/Stack";
 import { useNavigate, useParams } from "react-router-dom";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { UserApi } from '../api/UserApi';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { UserApi } from "../api/UserApi";
 import { useState, useEffect } from "react";
-const pages = ['Home Page','Control Panel'];
-const settings = ['Profile', 'Logout'];
+const pages = ["Home Page", "Control Panel"];
+const settings = ["Profile", "Logout"];
 const darkTheme = createTheme({
   palette: {
-    mode: 'light',
+    mode: "light",
     primary: {
-      main: '#fff',
+      main: "#fff",
     },
   },
 });
 function AppBarForAdmin() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-const { id } = useParams();
-const [user, setUser] = useState(null); // Öğrenci verisi için state tanımlayın
-const userApi = new UserApi();
+  const { id } = useParams();
+  const [user, setUser] = useState(null); // Öğrenci verisi için state tanımlayın
+  const userApi = new UserApi();
+  const [username, setUsername] = useState(
+    window.localStorage.getItem("username")
+  );
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -61,10 +64,11 @@ const userApi = new UserApi();
 
     fetchUser();
   }, [id]);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const handleProfileClick = (setting) => {
     if (setting === "Logout") {
-      navigate('/'); // Redirect to the sign-in page
+      window.localStorage.clear();
+      navigate("/"); // Redirect to the sign-in page
     } else {
       navigate(`/ListAdmin`);
     }
@@ -76,7 +80,7 @@ const userApi = new UserApi();
         <AppBar position="static">
           <Container maxWidth="xl">
             <Toolbar disableGutters>
-              <RoomIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+              <RoomIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
               <Typography
                 variant="h6"
                 noWrap
@@ -84,12 +88,12 @@ const userApi = new UserApi();
                 href="/"
                 sx={{
                   mr: 2,
-                  display: { xs: 'none', md: 'flex' },
-                  fontFamily: 'monospace',
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "monospace",
                   fontWeight: 700,
-                  letterSpacing: '.3rem',
-                  color: 'grey',
-                  textDecoration: 'none',
+                  letterSpacing: ".3rem",
+                  color: "grey",
+                  textDecoration: "none",
                 }}
               >
                 TEDORM
@@ -179,7 +183,7 @@ const userApi = new UserApi();
               >
                 List Permission
               </Typography>
-              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
                   size="large"
                   aria-label="account of current user"
@@ -194,18 +198,18 @@ const userApi = new UserApi();
                   id="menu-appbar"
                   anchorEl={anchorElNav}
                   anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
+                    vertical: "bottom",
+                    horizontal: "left",
                   }}
                   keepMounted
                   transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
+                    vertical: "top",
+                    horizontal: "left",
                   }}
                   open={Boolean(anchorElNav)}
                   onClose={handleCloseNavMenu}
                   sx={{
-                    display: { xs: 'block', md: 'none' },
+                    display: { xs: "block", md: "none" },
                   }}
                 >
                   {pages.map((page) => (
@@ -215,7 +219,7 @@ const userApi = new UserApi();
                   ))}
                 </Menu>
               </Box>
-              <RoomIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+              <RoomIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
               <Typography
                 variant="h5"
                 noWrap
@@ -223,13 +227,13 @@ const userApi = new UserApi();
                 href=""
                 sx={{
                   mr: 2,
-                  display: { xs: 'flex', md: 'none' },
+                  display: { xs: "flex", md: "none" },
                   flexGrow: 1,
-                  fontFamily: 'monospace',
+                  fontFamily: "monospace",
                   fontWeight: 700,
-                  letterSpacing: '.3rem',
-                  color: 'grey',
-                  textDecoration: 'none',
+                  letterSpacing: ".3rem",
+                  color: "grey",
+                  textDecoration: "none",
                 }}
               >
                 TEDORM
@@ -237,25 +241,28 @@ const userApi = new UserApi();
               <Box
                 sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
               ></Box>
-             
+
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="/static/images/avatar/2.jpg"
+                    />
                   </IconButton>
                 </Tooltip>
                 <Menu
-                  sx={{ mt: '45px' }}
+                  sx={{ mt: "45px" }}
                   id="menu-appbar"
                   anchorEl={anchorElUser}
                   anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                   keepMounted
                   transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}

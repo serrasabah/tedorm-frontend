@@ -1,41 +1,45 @@
-import * as React from 'react';
-import { Button, CardMedia, CssBaseline, InputLabel, Select, FormControl, MenuItem, TextField, FormControlLabel, Checkbox, Grid, Box, Typography, Container } from "@mui/material";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers-pro';
-import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
-import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
+import * as React from "react";
+import {
+  Button,
+  CardMedia,
+  CssBaseline,
+  InputLabel,
+  Select,
+  FormControl,
+  MenuItem,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Grid,
+  Box,
+  Typography,
+  Container,
+} from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers-pro";
+import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
+import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
-import AddAddress from './AddAddress';
-import AppBarForStudents from '../AppBarForStudent';
-import { AddAddressApi } from '../../api/AddAddressApi';
+import AddAddress from "./AddAddress";
+import AppBarForStudents from "../AppBarForStudent";
+import { AddAddressApi } from "../../api/AddAddressApi";
 import { AddPermissionApi } from "../../api/AddPermissionApi";
 import { useParams } from "react-router-dom";
-import { StudentApi } from '../../api/StudentApi';
+import { StudentApi } from "../../api/StudentApi";
 import PermissionImage from "./PermissionImage.png";
-import { UserApi } from '../../api/UserApi';
+import { UserApi } from "../../api/UserApi";
 
 export default function PermissionFormForStudents() {
   const permissionApi = new AddPermissionApi();
   const addAddressApi = new AddAddressApi();
   const studentApi = new StudentApi();
   const [student, setStudent] = useState(null);
-  const { id } = useParams();
+  const { id } = useParams(); // Obtain the id value from URL parameters
   const [user, setUser] = useState(null);
   const userApi = new UserApi();
-  useEffect(() => {
-    async function fetchStudent() {
-      try {
-        const response = await studentApi.getStudentById(id);
-        setStudent(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchStudent();
-  }, [id]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -43,7 +47,7 @@ export default function PermissionFormForStudents() {
   };
 
   const [addresses, setAddresses] = useState([]);
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState("");
   const [isAddAddressOpen, setAddAddressOpen] = useState(false);
   const [formState, setFormState] = useState({
     permissionDates: [null, null],
@@ -59,9 +63,14 @@ export default function PermissionFormForStudents() {
   };
   const handleChange = (event) => {
     setAddress(event.target.value);
-    const newState = { ...formStateAddress };
-    newState["address"] = event.target.value;
-    setFormStateAddress(newState);
+    const selectedAddress = addresses.find(
+      (addr) => addr.id === event.target.value
+    );
+    if (selectedAddress) {
+      const newState = { ...formStateAddress, addressId: selectedAddress.id };
+      setAddress(event.target.value);
+      setFormStateAddress(newState);
+    }
   };
 
   function onInputChange(event) {
@@ -73,7 +82,8 @@ export default function PermissionFormForStudents() {
   }
 
   async function addAddress(formStateAddress) {
-    const responseAddress = (await addAddressApi.addAddress(formStateAddress)).data;
+    const responseAddress = (await addAddressApi.addAddress(formStateAddress))
+      .data;
     if (responseAddress.responseType === "SUCCESS") {
       toast.success(responseAddress.message);
       setAddAddressOpen(false);
@@ -104,10 +114,13 @@ export default function PermissionFormForStudents() {
       ...rest,
       permissionDateStart: startDate,
       permissionDateEnd: endDate,
-      student_id: student.id
+      studentId: id, // Pass the id value obtained from URL parameters
+      address: "", // Remove the address property
+      addressId: formStateAddress.addressId, // Use the addressId from formStateAddress
     };
-
+    console.log(permissionData);
     const response = await permissionApi.addPermissions(permissionData);
+    console.log(permissionData);
     if (response.data.responseType === "SUCCESS") {
       toast.success(response.data.message);
     }
@@ -115,21 +128,12 @@ export default function PermissionFormForStudents() {
   const theme = createTheme();
   const renderAddressOptions = () => {
     return addresses.map((addr) => (
-      <MenuItem key={addr.id} value={addr.id}>{addr.address}</MenuItem>
+      <MenuItem key={addr.id} value={addr.id}>
+        {addr.address}
+      </MenuItem>
     ));
   };
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const response = await userApi.getUserById(id);
-        setUser(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
 
-    fetchUser();
-  }, [id]);
   return (
     <div>
       <AppBarForStudents />
@@ -139,9 +143,9 @@ export default function PermissionFormForStudents() {
           <Box
             sx={{
               marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
             <Typography component="h1" variant="h5" sx={{ mr: 80 }}>
@@ -149,16 +153,30 @@ export default function PermissionFormForStudents() {
             </Typography>
             <Box
               sx={{
-                display: 'flex',
-                alignItems: 'center',
+                display: "flex",
+                alignItems: "center",
               }}
             >
-              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+              <Box
+                component="form"
+                noValidate
+                onSubmit={handleSubmit}
+                sx={{ mt: 3 }}
+              >
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <FormControl fullWidth xs={12}>
-                      <InputLabel id="demo-simple-select-label">Select Adress</InputLabel>
-                      <Select required labelId="demo-simple-select-label" id="demo-simple-select" value={address} label="address" onChange={handleChange}>
+                      <InputLabel id="demo-simple-select-label">
+                        Select Address
+                      </InputLabel>
+                      <Select
+                        required
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={address}
+                        label="address"
+                        onChange={handleChange}
+                      >
                         {renderAddressOptions()}
                       </Select>
                     </FormControl>
@@ -171,31 +189,46 @@ export default function PermissionFormForStudents() {
                         color="inherit"
                         fullWidth
                         variant="outlined"
-                        sx={{ mt: 0.3, mb: 0.3 }}>
+                        sx={{ mt: 0.3, mb: 0.3 }}
+                      >
                         <ControlPointIcon /> Add Address
                       </Button>
-                      <AddAddress isOpen={isAddAddressOpen} close={() => setAddAddressOpen(false)} submit={addAddress} />
+                      <AddAddress
+                        isOpen={isAddAddressOpen}
+                        close={() => setAddAddressOpen(false)}
+                        submit={addAddress}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={12}>
                     <FormControl fullWidth xs={12}>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DemoContainer components={['DateRangePicker']}>
-                          <DateRangePicker name="permissionDates"
-                            localeText={{ start: 'Start day', end: 'End day' }}
+                        <DemoContainer components={["DateRangePicker"]}>
+                          <DateRangePicker
+                            name="permissionDates"
+                            localeText={{ start: "Start day", end: "End day" }}
                             value={formState.permissionDates}
                             onChange={(newValue) => {
                               const newState = { ...formState };
                               newState.permissionDates = newValue;
                               setFormState(newState);
-                            }} />
+                            }}
+                          />
                         </DemoContainer>
                       </LocalizationProvider>
                     </FormControl>
                   </Grid>
                   <Grid item xs={12}>
                     <FormControl fullWidth xs={12}>
-                      <TextField onChange={onInputChange} name="message" id="outlined-multiline-static" label="Add Message" multiline rows={4} defaultValue="" />
+                      <TextField
+                        onChange={onInputChange}
+                        name="message"
+                        id="outlined-multiline-static"
+                        label="Add Message"
+                        multiline
+                        rows={4}
+                        defaultValue=""
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={12}>
@@ -217,15 +250,26 @@ export default function PermissionFormForStudents() {
                     />
                   </Grid>
                 </Grid>
-                <Button onClick={() => addPermission(formState)} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} disabled={!address || formState.permissionDates[0] === null || formState.permissionDates[1] === null}>
+                <Button
+                  onClick={() => addPermission(formState)}
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  disabled={
+                    !address ||
+                    formState.permissionDates[0] === null ||
+                    formState.permissionDates[1] === null
+                  }
+                >
                   Add
                 </Button>
               </Box>
               <CardMedia
                 component="img"
                 sx={{
-                  width: 'auto',
-                  height: '100%',
+                  width: "auto",
+                  height: "100%",
                   marginLeft: 20,
                 }}
                 image={PermissionImage}

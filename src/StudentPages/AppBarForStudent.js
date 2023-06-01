@@ -55,20 +55,6 @@ function AppBarForStudents() {
     setAnchorElUser(null);
   };
 
-  useEffect(() => {
-    // Component yüklendiğinde öğrenci verisini almak için useEffect kullanın
-    async function fetchUser() {
-      try {
-        const response = await userApi.getUserById(id); // Spring Boot'tan öğrenci verisini alın
-        setUser(response.data); // Veriyi state'e kaydedin
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    fetchUser();
-  }, [id]);
-
   const navigate = useNavigate();
 
   const handleProfileClick = (setting) => {

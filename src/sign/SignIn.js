@@ -17,12 +17,12 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import ApplicantPage from "../AplicantPage/ApplicantPage";
-import AddBoxIcon from '@mui/icons-material/AddBox';
+import AddBoxIcon from "@mui/icons-material/AddBox";
 import { ApplicantApi } from "../api/ApplicantApi";
 import { UserApi } from "../api/UserApi";
 import ListStudent from "../AdminPages/ListStudent";
 import imageYurtSized from "./imageYurtSized.png";
-import { CardMedia, Paper } from '@mui/material';
+import { CardMedia, Paper } from "@mui/material";
 import { ForgotPassword } from "./ForgotPassword";
 
 function Copyright(props) {
@@ -54,7 +54,7 @@ export default function SignIn() {
   const [password, setPassword] = useState();
   const navigate = useNavigate();
   const [isAddApplicantModalOpen, setAddApplicantModalOpen] = useState(false);
-
+  const userApi = new UserApi();
 
   async function addApplicant(formState) {
     const response = (await applicantApi.addApplicant(formState)).data;
@@ -99,13 +99,15 @@ export default function SignIn() {
         const id = messageResponse.ID;
         console.log(id);
         if (messageResponse.isAuthority === "STUDENT") {
-          navigate(`/MainPageForStudent/${id}`);
-        }
-        else if (messageResponse.isAuthority === "ADMIN") {
+          const response = await userApi.getStudentByUserId(id); // Spring Boot'tan öğrenci verisini alın
+          console.log(response.data);
+          setUser(response.data.id); // Veriyi state'e kaydedin
+          console.log(response.data.id);
+          navigate(`/MainPageForStudent/${response.data.id}`);
+        } else if (messageResponse.isAuthority === "ADMIN") {
           navigate(`/ListStudents`);
         }
-      }
-      else {
+      } else {
         toast.error(messageResponse.message);
       }
     }
@@ -122,13 +124,13 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <CardMedia
           component="img"
           style={{
-            width: '58%',
-            height: '100%'
+            width: "58%",
+            height: "100%",
           }}
           sm={4}
           md={7}
@@ -144,7 +146,7 @@ export default function SignIn() {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'black' }}>
+            <Avatar sx={{ m: 1, bgcolor: "black" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
@@ -192,7 +194,7 @@ export default function SignIn() {
                 Sign In
               </Button>
               <Grid container>
-                <Grid item >
+                <Grid item>
                   <ForgotPassword username={username} />
                 </Grid>
                 <Button

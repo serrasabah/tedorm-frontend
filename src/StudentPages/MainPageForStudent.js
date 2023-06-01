@@ -15,24 +15,10 @@ function MainPageForStudent() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const response = await userApi.getUserById(id);
-        setUser(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    fetchUser();
-  }, [id]);
-
   return (
     <div>
-      <AppBarForStudents />
+      <AppBarForStudents {...id} />
       <Container maxWidth="lg">
-        <WelcomeMessage user={user} />
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <DormImagesCarousel />
@@ -49,7 +35,6 @@ function MainPageForStudent() {
             <Maps />
           </Grid>
         </Grid>
-
       </Container>
     </div>
   );
