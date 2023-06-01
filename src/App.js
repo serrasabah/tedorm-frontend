@@ -13,9 +13,12 @@ import * as React from "react";
 import { UsernameProvider } from "./context/Context";
 import ListStudents from "./AdminPages/ListStudent";
 import ProfilePageForStudent from "./AdminPages/ProfilePageForStudent";
+import AddAnnouncement from "./AdminPages/AnnouncementPage/AddAnnouncement";
+import ListAnnouncement from "./StudentPages/AnnouncementPage/ListAnnouncements";
 import ListMenu from "./MenuPages/ListMenu";
 import ListMenuForStudent from "./MenuPages/ListMenuForStudent";
-
+import ListAdmin from "./AdminPages/ListAdmin";
+import ListRooms from "./RoomsPage/ListRooms";
 function App() {
   return (
     <>
@@ -36,30 +39,36 @@ function App() {
             <Route path="/" element={<SignIn />} />
             <Route
               element={<MainPageForStudent />}
-              path={"/MainPageForStudent"}
+              path={"/MainPageForStudent/:id"}
             />
             <Route
               element={<PermissionFormForStudents />}
-              path={"/PermissionFormForStudents"}
+              path={"/PermissionFormForStudents/:id"}
             />
             <Route element={<ListStudents />} path={"/ListStudents"} />
-
             <Route element={<ListPermissions />} path={"/ListPermissions"} />
             <Route element={<ApplicantPage />} path={"/ApplicantPage"} />
             <Route
               element={<StudentProfilePage />}
-              path={"/StudentProfilePage"}
+              path={"/StudentProfilePage/:id"}
             />
             <Route
               element={<ProfilePageForStudent />}
               path={"/ProfilePageForStudent/:id"}
             />
+            <Route element={<AddAnnouncement />} path={"/AddAnnouncement"} />
+            <Route
+              element={<ListAnnouncement />}
+              path={"/ListAnnouncement/:id"}
+            />
             <Route element={<ListApplicant />} path={"/ListApplicant"} />
             <Route element={<ListMenu />} path={"/ListMenu"} />
             <Route
               element={<ListMenuForStudent />}
-              path={"/ListMenuForStudent"}
+              path={"/ListMenuForStudent/:id"}
             />
+            <Route element={<ListAdmin />} path={"/ListAdmin"} />
+            <Route element={<ListRooms />} path={"/ListRooms"} />
           </Routes>
         </UsernameProvider>
       </BrowserRouter>

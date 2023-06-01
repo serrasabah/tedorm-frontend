@@ -6,6 +6,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@material-ui/core": "^4.12.4",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.0",
     "@mui/x-data-grid": "^6.4.0",
@@ -17,11 +18,13 @@
     "axios": "^1.4.0",
     "dayjs": "^1.11.7",
     "react": "^18.2.0",
+    "react-carousel-minimal": "^1.4.1",
     "react-dom": "^18.2.0",
     "react-drag-drop-files": "^2.3.10",
     "react-hook-form": "^7.43.9",
+    "react-minimal-carousel": "^1.0.0",
     "react-router-dom": "^6.10.0",
-    "react-scripts": "^2.1.8",
+    "react-scripts": "^2.1.3",
     "react-toastify": "^8.0.0",
     "web-vitals": "^2.1.4"
   },

@@ -26,10 +26,10 @@ export const AccountProfileDetails = ({ student }) => {
   const studentApi = new StudentApi();
 
   const [values, setValues] = useState({
-    university: student.university,
-    email: student.email,
-    phoneNumber: student.phoneNumber,
-    roomNumber: student.roomNumber,
+    // university: student.university,
+    //email: student.email,
+    //phoneNumber: student.phoneNumber,
+    //roomNumber: student.roomNumber,
   });
 
   const handleClickOpen = () => {
@@ -109,8 +109,8 @@ export const AccountProfileDetails = ({ student }) => {
                     <Grid xs={12} md={6}>
                       <TextField
                         fullWidth
-                        label="Email Address"
-                        name="email"
+                        label="University"
+                        name="university"
                         onChange={handleChange}
                         required
                         value={values.university}

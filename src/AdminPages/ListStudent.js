@@ -4,7 +4,6 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
 import { StudentApi } from "../api/StudentApi";
-import AppBarForStudents from "../StudentPages/AppBarForStudent";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { toast } from "react-toastify";
 import { GridActionsCellItem } from "@mui/x-data-grid-pro";
@@ -24,6 +23,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import AppBarForAdmin from "./AppBarForAdmin";
 
 function ListStudent() {
   const columns = [
@@ -172,7 +172,7 @@ function ListStudent() {
 
   return (
     <div>
-      <AppBarForStudents />
+      <AppBarForAdmin/>
       <Container>
         <Box sx={{ width: "100%", m: "2rem" }}>
           <Stack direction="row" spacing={1}></Stack>

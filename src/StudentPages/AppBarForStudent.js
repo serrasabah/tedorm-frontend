@@ -9,16 +9,24 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import RoomIcon from "@mui/icons-material/Room";
-import { NavLink } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import StudentProfilePages from "./ProfilePage/StudentProfilePage";
+
+import { UserApi } from "../api/UserApi";
+
+function AppBarForStudents() {
+  
+const [user, setUser] = useState(null); // Öğrenci verisi için state tanımlayın
+const userApi = new UserApi();
+const { id } = useParams();
 const pages = ["Home Page", "Menu", "Request", "Announcement"];
-const settings = ["Profile", "Account", "Logout"];
+const settings = ["Profile", "Logout"];
 const darkTheme = createTheme({
   palette: {
     mode: "light",
@@ -27,7 +35,7 @@ const darkTheme = createTheme({
     },
   },
 });
-function AppBarForStudents() {
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -44,6 +52,30 @@ function AppBarForStudents() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  useEffect(() => {
+    // Component yüklendiğinde öğrenci verisini almak için useEffect kullanın
+    async function fetchUser() {
+      try {
+        const response = await userApi.getUserById(id); // Spring Boot'tan öğrenci verisini alın
+        setUser(response.data); // Veriyi state'e kaydedin
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchUser();
+  }, [id]);
+
+  const navigate = useNavigate();
+  const handleProfileClick = (setting) => {
+    if (setting === "Logout") {
+      navigate(`/`); // Redirect to the sign-in page
+    } else {
+      navigate(`/StudentProfilePage/${id}`);
+    }
+    handleCloseUserMenu();
   };
 
   return (
@@ -74,7 +106,8 @@ function AppBarForStudents() {
                 variant="h6"
                 noWrap
                 component="a"
-                href="/MainPageForStudent"
+                const 
+                onClick={() => navigate(`/MainPageForStudent/${id}`)}
                 sx={{
                   mr: 3,
                   display: { xs: "none", md: "flex" },
@@ -91,7 +124,7 @@ function AppBarForStudents() {
                 variant="h6"
                 noWrap
                 component="a"
-                href="/DinnerMenuForStudent"
+                onClick={() => navigate(`/ListMenuForStudent/${id}`)}
                 sx={{
                   mr: 2,
                   display: { xs: "none", md: "flex" },
@@ -104,12 +137,11 @@ function AppBarForStudents() {
               >
                 Menu
               </Typography>
-
               <Typography
                 variant="h6"
                 noWrap
                 component="a"
-                href="/ViewAnnouncement"
+                onClick={() => navigate(`/ListAnnouncement/${id}`)}
                 sx={{
                   mr: 3,
                   display: { xs: "none", md: "flex" },
@@ -126,7 +158,7 @@ function AppBarForStudents() {
                 variant="h6"
                 noWrap
                 component="a"
-                href="/PermissionFormForStudents"
+                onClick={() => navigate(`/PermissionFormForStudents/${id}`)}
                 sx={{
                   mr: 2,
                   display: { xs: "none", md: "flex" },
@@ -227,7 +259,7 @@ function AppBarForStudents() {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <MenuItem key={setting} onClick={handleProfileClick}>
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}

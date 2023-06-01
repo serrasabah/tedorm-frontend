@@ -1,8 +1,10 @@
+import * as React from "react";
 import {
   Box,
-  Container,
+  Container, Card,
+  CardContent,
   Stack,
-  Typography,
+  Typography, Divider,
   Unstable_Grid2 as Grid,
 } from "@mui/material";
 import { AccountProfileDetails } from "../StudentPages/ProfilePage/AccountProfileDetails";
@@ -49,109 +51,80 @@ function ProfilePageForStudent() {
               </div>
               <div>
                 <Grid container spacing={3}>
-                  <Grid xs={12} md={6} lg={4}>
+                  <Grid xs={15} md={15} lg={4}>
                     <AccountProfile />
                   </Grid>
-                  <Grid xs={12} md={6} lg={8}>
-                    <div>
-                      <Typography
-                        variant="h6"
-                        style={{
-                          border: "0.5px solid 	#dcdcdc",
-                          padding: "4px",
-                          marginLeft: "50px",
-                        }}
-                      >
-                        Name: {student.name}
-                      </Typography>{" "}
-                      <Typography
-                        variant="h6"
-                        style={{
-                          border: "0.5px solid 	#dcdcdc",
-                          padding: "4px",
-                          marginLeft: "50px",
-                        }}
-                      >
-                        Surname: {student.surname}
-                      </Typography>{" "}
-                      <Typography
-                        variant="h6"
-                        style={{
-                          border: "0.5px solid 	#dcdcdc",
-                          padding: "4px",
-                          marginLeft: "50px",
-                        }}
-                      >
-                        Email: {student.email}
-                      </Typography>{" "}
-                      <Typography
-                        variant="h6"
-                        style={{
-                          border: "0.5px solid 	#dcdcdc",
-                          padding: "4px",
-                          marginLeft: "50px",
-                        }}
-                      >
-                        Student Number: {student.studentNumber}
-                      </Typography>{" "}
-                      <Typography
-                        variant="h6"
-                        style={{
-                          border: "0.5px solid 	#dcdcdc",
-                          padding: "4px",
-                          marginLeft: "50px",
-                        }}
-                      >
-                        Age: {student.age}
-                      </Typography>{" "}
-                      <Typography
-                        variant="h6"
-                        style={{
-                          border: "0.5px solid 	#dcdcdc",
-                          padding: "4px",
-                          marginLeft: "50px",
-                        }}
-                      >
-                        Room Number: {student.roomNumber}
-                      </Typography>{" "}
-                      <Typography
-                        variant="h6"
-                        style={{
-                          border: "0.5px solid 	#dcdcdc",
-                          padding: "4px",
-                          marginLeft: "50px",
-                        }}
-                      >
-                        University: {student.university}
-                      </Typography>{" "}
-                      <Typography
-                        variant="h6"
-                        style={{
-                          border: "0.5px solid 	#dcdcdc",
-                          padding: "4px",
-                          marginLeft: "50px",
-                        }}
-                      >
-                        Phone Number: {student.phoneNumber}
-                      </Typography>{" "}
+                  <Grid xs={12} md={6} lg={5}>
+                    <Card>
+                      <CardContent>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <div>
+                            <Box m={0.5}>
+                              <Typography fontFamily="Arial" variant="h6">
+                                Name: {student.name}
+                              </Typography>
+                            </Box>
+                            <Divider />
+                            <Box m={0.5}>
+                              <Typography variant="h6">
+                                Surname: {student.surname}
+                              </Typography>
+                            </Box>
+                            <Divider />
+                            <Box m={0.5}>
+                              <Typography variant="h6">
+                                Email: {student.email}
+                              </Typography>
+                            </Box>
+                            <Divider />
+                            <Box m={0.5}>
+                              <Typography variant="h6">
+                                Student Number: {student.studentNumber}
+                              </Typography>
+                            </Box>
+                            <Divider />
+                            <Box m={0.5}>
+                              <Typography variant="h6">
+                                Age: {student.age}
+                              </Typography>
+                            </Box>
+                            <Divider />
+                            <Box m={0.5}>
+                              <Typography variant="h6">
+                                Room Number: {student.roomNumber}
+                              </Typography>
+                            </Box>
+                            <Divider />
+                            <Box m={0.5}>
+                              <Typography variant="h6">
+                                University: {student.university}
+                              </Typography>
+                            </Box>
+                            <Divider />
+                            <Box m={0.5}>
+                              <Typography variant="h6">
+                                Phone Number: {student.phoneNumber}
+                              </Typography>
+                            </Box>
+                          </div>
+                        </Box>
+                      </CardContent>
+                    </Card>
+                    <Divider />
+                    <div style={{ display: "flex", padding: '10px' }}>
+                      <DeleteStudent student={student} />
                     </div>
                   </Grid>
-
                   <Grid xs={12} md={6} lg={6}>
                     <div>
                       <Typography variant="h4">Files</Typography>{" "}
                     </div>
-                    <ViewDocuments id={id} />{" "}
-                    {/* id prop'unu ViewDocuments bileşenine geçirin */}
-                  </Grid>
-                  <Grid xs={12} md={6} lg={8}>
-                    <AccountProfileDetails student={student} />
-                  </Grid>
-                  <Grid xs={12} md={6} lg={8}>
-                    <DeleteStudent student={student} />
-                  </Grid>
-                  <Grid xs={12} md={6} lg={8}>
-                    <ChangePassword student={student} />
+                    <ViewDocuments id={id} />
                   </Grid>
                 </Grid>
               </div>

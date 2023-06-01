@@ -3,12 +3,9 @@ import { Container } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
-import { StudentApi } from "../api/StudentApi";
-import AppBarForStudents from "../StudentPages/AppBarForStudent";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "react-toastify";
 import { GridActionsCellItem } from "@mui/x-data-grid-pro";
-import DialogContentText from "@mui/material/DialogContentText";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import EditIcon from "@mui/icons-material/Edit";
@@ -26,6 +23,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import { MenuApi } from "../api/MenuApi";
+import AppBarForAdmin from "../AdminPages/AppBarForAdmin";
 
 function ListMenu() {
   const columns = [
@@ -242,7 +240,7 @@ function ListMenu() {
 
   return (
     <div>
-      <AppBarForStudents />
+      <AppBarForAdmin/>
       <Container>
         <Box sx={{ width: "105%", m: "2rem" }}>
           <Stack direction="row" spacing={1}></Stack>

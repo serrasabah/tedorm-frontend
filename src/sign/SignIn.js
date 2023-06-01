@@ -17,8 +17,12 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import ApplicantPage from "../AplicantPage/ApplicantPage";
-import AddBoxIcon from "@mui/icons-material/AddBox";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import { ApplicantApi } from "../api/ApplicantApi";
+import { UserApi } from "../api/UserApi";
+import ListStudent from "../AdminPages/ListStudent";
+import imageYurtSized from "./imageYurtSized.png";
+import { CardMedia, Paper } from '@mui/material';
 import { ForgotPassword } from "./ForgotPassword";
 
 function Copyright(props) {
@@ -30,8 +34,8 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://tedorm.com/">
+        TEDORM
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -45,10 +49,12 @@ export default function SignIn() {
   const applicantApi = new ApplicantApi();
   const loginApi = new LoginApi();
   const [formState, setFormState] = useState({});
+  const [user, setUser] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
   const [isAddApplicantModalOpen, setAddApplicantModalOpen] = useState(false);
+
 
   async function addApplicant(formState) {
     const response = (await applicantApi.addApplicant(formState)).data;
@@ -84,15 +90,22 @@ export default function SignIn() {
     } else {
       const response = await loginApi.login(formState);
       const messageResponse = response.data;
-      console.log(formState);
 
       if (messageResponse.responseType === "SUCCESS") {
         toast.success(messageResponse.message);
         window.localStorage.setItem("username", username);
         const name = username.toUpperCase();
-        console.log(name);
-        navigate("/MainPageForStudent", { state: { name: name } });
-      } else {
+        console.log(response);
+        const id = messageResponse.ID;
+        console.log(id);
+        if (messageResponse.isAuthority === "STUDENT") {
+          navigate(`/MainPageForStudent/${id}`);
+        }
+        else if (messageResponse.isAuthority === "ADMIN") {
+          navigate(`/ListStudents`);
+        }
+      }
+      else {
         toast.error(messageResponse.message);
       }
     }
@@ -109,83 +122,96 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+        <CardMedia
+          component="img"
+          style={{
+            width: '58%',
+            height: '100%'
           }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
+          sm={4}
+          md={7}
+          image={imageYurtSized}
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
+            sx={{
+              my: 8,
+              mx: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <TextField
-              onChange={onUserInputChange}
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={onPasswordInputChange}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              onClick={login}
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+            <Avatar sx={{ m: 1, bgcolor: 'black' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ mt: 1 }}
             >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <ForgotPassword username={username} />
-              </Grid>
-              <Button
-                variant="outlined"
-                onClick={() => setAddApplicantModalOpen(true)}
-              >
-                Add Applicant <AddBoxIcon />
-              </Button>
-              <ApplicantPage
-                isOpen={isAddApplicantModalOpen}
-                close={() => setAddApplicantModalOpen(false)}
-                submit={addApplicant}
+              <TextField
+                onChange={onUserInputChange}
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
+                autoFocus
               />
-            </Grid>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={onPasswordInputChange}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                onClick={login}
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item >
+                  <ForgotPassword username={username} />
+                </Grid>
+                <Button
+                  variant="outlined"
+                  onClick={() => setAddApplicantModalOpen(true)}
+                >
+                  Add Applicant <AddBoxIcon />
+                </Button>
+                <ApplicantPage
+                  isOpen={isAddApplicantModalOpen}
+                  close={() => setAddApplicantModalOpen(false)}
+                  submit={addApplicant}
+                />
+              </Grid>
+              <Copyright sx={{ mt: 5 }} />
+            </Box>
           </Box>
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
+        </Grid>
+      </Grid>
     </ThemeProvider>
   );
 }

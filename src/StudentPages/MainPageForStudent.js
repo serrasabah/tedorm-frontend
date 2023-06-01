@@ -1,56 +1,58 @@
+import React, { useState, useEffect } from "react";
 import AppBarForStudents from "./AppBarForStudent";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import TEDORMmap from "./TEDORMmap.png";
-import { CardMedia } from "@mui/material";
-import * as React from 'react';
+import { Container, Paper, Grid } from "@mui/material";
+import { UserApi } from "../api/UserApi";
+import { useParams, useNavigate } from "react-router-dom";
+import WeatherWidget from "./Widgets/WeatherWidget";
+import DormImagesCarousel from "./Widgets/DormImagesCarousel";
+import SocialMediaLinks from "./Widgets/SocialMediaLinks.js";
+import WelcomeMessage from "./Widgets/WelcomeMessage.js";
+import Maps from "./Widgets/Maps";
 
 function MainPageForStudent() {
+  const [user, setUser] = useState(null);
+  const userApi = new UserApi();
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const response = await userApi.getUserById(id);
+        setUser(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchUser();
+  }, [id]);
+
   return (
     <div>
       <AppBarForStudents />
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          "& > :not(style)": {
-            marginLeft: 20,
-            marginTop: 5,
-            width: 680,
-            height: 861,
-          },
-        }}
-      >
-        <Paper elevation={3} />
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            "& > :not(style)": {
-              width: 680,
-              height: 300,
-            },
-          }}
-        >
-          <Paper elevation={3} />
-          <CardMedia
-            image={TEDORMmap}
-            component="img"
-            style={{
-              width: "100%",
-              height: "55%",
-            }}
-            sm={2}
-            md={3}
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              "& > :not(style)": {},
-            }}
-          ></CardMedia>
-        </Box>
-      </Box>
+      <Container maxWidth="lg">
+        <WelcomeMessage user={user} />
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <DormImagesCarousel />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <WeatherWidget />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <SocialMediaLinks />
+              </Grid>
+            </Grid>
+            <Maps />
+          </Grid>
+        </Grid>
+
+      </Container>
     </div>
   );
 }
+
 export default MainPageForStudent;

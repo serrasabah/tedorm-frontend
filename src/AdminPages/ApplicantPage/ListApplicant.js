@@ -2,21 +2,19 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { ApplicantApi } from "../../api/ApplicantApi";
 import { toast } from "react-toastify";
-import { IconButton, Stack, Container } from "@mui/material";
+import { Stack, Container } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import { GridActionsCellItem } from "@mui/x-data-grid-pro";
 import DoneIcon from "@mui/icons-material/Done";
-import { Done } from "@mui/icons-material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 import { StudentApi } from "../../api/StudentApi";
 import { Box, TextField, Unstable_Grid2 as Grid } from "@mui/material";
+import AppBarForAdmin from "../AppBarForAdmin";
 
 function ListApplicant() {
   const [selectionModel, setSelectionModel] = useState();
@@ -44,7 +42,7 @@ function ListApplicant() {
   };
 
   useEffect(() => {
-    getApplicant().then((r) => {});
+    getApplicant().then((r) => { });
   }, []);
 
   async function getApplicant() {
@@ -186,17 +184,17 @@ function ListApplicant() {
           icon={<DoneIcon style={{ color: "green" }} />}
           label="Accept"
           onClick={() => handleAddApplicant(params.id)}
-          // showInMenu
+        // showInMenu
         />,
       ],
     },
   ];
   return (
     <div className="list">
+      <AppBarForAdmin />
       <Container>
         <Box
-          sx={{ width: "130%", display: "flex", justifyContent: "flex-start" }}
-        >
+          sx={{ width: "130%", m: "2rem", display: "flex", justifyContent: "flex-start" }} >
           <Stack direction="row" spacing={1}></Stack>
           <Box
             sx={{
@@ -225,12 +223,9 @@ function ListApplicant() {
                 if (selection.length > 1) {
                   const selectionSet = new Set(selectionModel);
                   const result = selection.filter((s) => !selectionSet.has(s));
-
                   setSelectionModel(result);
-                  console.log(selectionModel);
                 } else {
                   setSelectionModel(selection);
-                  console.log(selectionModel);
                 }
               }}
             />
@@ -249,7 +244,6 @@ function ListApplicant() {
           <Button onClick={handleClosePopup}>Close</Button>
         </DialogActions>
       </Dialog>
-
       <Dialog open={openAddApplicant} onClose={handleClosePopup}>
         <DialogTitle>Accept Applicant</DialogTitle>
         <DialogContent>Do you accept being a dorm student?</DialogContent>
