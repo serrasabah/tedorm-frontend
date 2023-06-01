@@ -28,8 +28,8 @@ function AppBarForAdmin() {
     handleCloseUserMenu();
   };
 
-  const pages = ["Menu", "List Applicants", "List Student", "Add Announcement", "List Permission"];
-  const links = ["/ListMenu", "/ListApplicant", "/ListStudents", "/AddAnnouncement", "/ListPermissions"];
+  const pages = ["Menu", "List Applicants", "List Student", "List Rooms", "Add Announcement", "List Permission"];
+  const links = ["/ListMenu", "/ListApplicant", "/ListStudents", "/ListRooms", "/AddAnnouncement", "/ListPermissions"];
 
   return (
     <Box sx={{ flexGrow: 1 }}>
