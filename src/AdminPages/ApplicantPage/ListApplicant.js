@@ -42,7 +42,7 @@ function ListApplicant() {
   };
 
   useEffect(() => {
-    getApplicant().then((r) => { });
+    getApplicant().then((r) => {});
   }, []);
 
   async function getApplicant() {
@@ -97,6 +97,7 @@ function ListApplicant() {
       const messageResponse = response.data;
       if (messageResponse.responseType === "SUCCESS") {
         toast.success(messageResponse.message);
+        await getApplicant();
       } else {
         toast.error(messageResponse.message);
       }
@@ -184,7 +185,7 @@ function ListApplicant() {
           icon={<DoneIcon style={{ color: "green" }} />}
           label="Accept"
           onClick={() => handleAddApplicant(params.id)}
-        // showInMenu
+          // showInMenu
         />,
       ],
     },
@@ -194,7 +195,13 @@ function ListApplicant() {
       <AppBarForAdmin />
       <Container>
         <Box
-          sx={{ width: "130%", m: "2rem", display: "flex", justifyContent: "flex-start" }} >
+          sx={{
+            width: "130%",
+            m: "2rem",
+            display: "flex",
+            justifyContent: "flex-start",
+          }}
+        >
           <Stack direction="row" spacing={1}></Stack>
           <Box
             sx={{

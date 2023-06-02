@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AppBarForStudents from "./AppBarForStudent";
-import { Container, Paper, Grid } from "@mui/material";
+import { Container, Grid, Box } from "@mui/material";
 import { UserApi } from "../api/UserApi";
 import { useParams, useNavigate } from "react-router-dom";
 import WeatherWidget from "./Widgets/WeatherWidget";
@@ -15,30 +15,43 @@ function MainPageForStudent() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const response = await userApi.getUserById(id);
+        setUser(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchUser();
+  }, [id]);
+
   return (
     <div>
       <AppBarForStudents {...id} />
-      <Container maxWidth="lg">
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <WelcomeMessage />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <DormImagesCarousel />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <WeatherWidget />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <SocialMediaLinks />
-              </Grid>
+      <Box sx={{ minHeight: "calc(100vh - 64px)", paddingTop: "10px" }}>
+        <Container maxWidth="lg">
+          <WelcomeMessage user={user} />
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <DormImagesCarousel />
             </Grid>
-            <Maps />
+            <Grid item xs={12} sm={6}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <WeatherWidget />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <SocialMediaLinks />
+                </Grid>
+              </Grid>
+              <Maps />
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </Box>
     </div>
   );
 }
