@@ -41,6 +41,7 @@ function AppBarForAdmin() {
     "Menu",
     "List Applicants",
     "List Student",
+    "List Rooms",
     "Add Announcement",
     "List Permission",
   ];
@@ -48,6 +49,7 @@ function AppBarForAdmin() {
     "/ListMenu",
     "/ListApplicant",
     "/ListStudents",
+    "/ListRooms",
     "/AddAnnouncement",
     "/ListPermissions",
   ];
