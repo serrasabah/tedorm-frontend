@@ -8,52 +8,67 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { Context } from "../../context/Context";
 import UploadFileForStudent from "./UploadFileForStudent";
 import StudentAvatar from "../StudentAvatar";
+import { useParams } from "react-router-dom";
 
-const user = {
-  avatar: "",
-  name: "",
-  timezone: "",
-};
+export const AccountProfile = () => {
+  const { id } = useParams();
+  const [user, setUser] = useState({
+    avatar: "",
+    name: "",
+    timezone: "",
+  });
+  const [url, setUrl] = useState({});
 
-export const AccountProfile = () => (
-  <>
-    <Card>
-      <CardContent>
-        <Box
-          sx={{
-            alignItems: "center",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Avatar
-            src={user.avatar}
+  const [img, setImg] = useState();
+
+  useEffect(() => {
+    fetchImage();
+  }, []);
+
+  useEffect(() => {
+    console.log(img); // This will log the image URL when it is set
+  }, [img]);
+
+  const fetchImage = async () => {
+    const res = await fetch(`/avatar/list/${id}`);
+    const imageBlob = await res.blob();
+    const imageObjectURL = URL.createObjectURL(imageBlob);
+    setImg(imageObjectURL);
+  };
+
+  return (
+    <>
+      <Card>
+        <CardContent>
+          <Box
             sx={{
-              height: 150,
-              mb: 2,
-              width: 150,
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "column",
             }}
-          />
-          <Typography gutterBottom variant="h5">
-            {user.name}
-          </Typography>
-        </Box>
-      </CardContent>
-      <Divider />
-      <CardActions>
-        <StudentAvatar />
-      </CardActions>
-    </Card>
-    <div>
-      <div style={{ marginTop: "10px" }}></div> {/* 10 piksel boşluk */}
-      {/* ... */}
-      {/* ... */}
-      <UploadFileForStudent />
-      {/* ... */}
-    </div>
-  </>
-);
+          >
+            <img src={img} alt="icons" />
+            <Typography gutterBottom variant="h5">
+              {user.name}
+            </Typography>
+          </Box>
+        </CardContent>
+        <Divider />
+        <CardActions>
+          <StudentAvatar />
+        </CardActions>
+      </Card>
+      <div>
+        <div style={{ marginTop: "10px" }}></div> {/* 10 piksel boşluk */}
+        {/* ... */}
+        {/* ... */}
+        <UploadFileForStudent />
+        {/* ... */}
+      </div>
+    </>
+  );
+};
