@@ -53,12 +53,8 @@ export const ChangePassword = ({ student }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(student.id);
     console.log(textFieldValues);
-    const response = await studentApi.changePassword(
-      student.id,
-      textFieldValues
-    );
+    const response = await studentApi.changePassword(id, textFieldValues);
     const messageResponse = response.data;
     if (messageResponse.responseType === "SUCCESS") {
       toast.success(messageResponse.message);

@@ -28,12 +28,6 @@ import AppBarForAdmin from "./AppBarForAdmin";
 function ListStudent() {
   const columns = [
     {
-      field: "id",
-      headerName: "ID",
-      width: 100,
-      editable: false,
-    },
-    {
       field: "name",
       headerName: "Name",
       width: 120,
@@ -172,7 +166,7 @@ function ListStudent() {
 
   return (
     <div>
-      <AppBarForAdmin/>
+      <AppBarForAdmin />
       <Container>
         <Box sx={{ width: "75%", m: "2rem", margin: "2rem auto 0" }}>
           <Stack direction="row" spacing={1}></Stack>

@@ -28,12 +28,6 @@ import AppBarForAdmin from "../AdminPages/AppBarForAdmin";
 function ListMenu() {
   const columns = [
     {
-      field: "id",
-      headerName: "ID",
-      width: 100,
-      editable: false,
-    },
-    {
       field: "date",
       headerName: "Date",
       width: 120,
@@ -240,7 +234,7 @@ function ListMenu() {
 
   return (
     <div>
-      <AppBarForAdmin/>
+      <AppBarForAdmin />
       <Container>
         <Box sx={{ width: "105%", margin: "2rem auto 0"}}>
           <Stack direction="row" spacing={1}></Stack>

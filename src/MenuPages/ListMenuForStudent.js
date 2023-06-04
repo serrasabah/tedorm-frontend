@@ -14,12 +14,6 @@ import { useParams } from "react-router-dom";
 function ListMenuForStudent() {
   const columns = [
     {
-      field: "id",
-      headerName: "ID",
-      width: 100,
-      editable: false,
-    },
-    {
       field: "date",
       headerName: "Date",
       width: 120,
@@ -40,7 +34,7 @@ function ListMenuForStudent() {
     {
       field: "food",
       headerName: "Food",
-      width: 200,
+      width: 800,
       editable: true,
     },
   ];
@@ -56,16 +50,17 @@ function ListMenuForStudent() {
   const studentApi = new StudentApi();
   const { id } = useParams();
   useEffect(() => {
-      // Component yüklendiğinde öğrenci verisini almak için useEffect kullanın
-      async function fetchStudent() {
-        try {
-          const response = await studentApi.getStudentById(id); // Spring Boot'tan öğrenci verisini alın
-          setStudent(response.data); // Veriyi state'e kaydedin
-        } catch (error) {
-          console.log(error);
-        }
-      } fetchStudent();
-    }, [id]);
+    // Component yüklendiğinde öğrenci verisini almak için useEffect kullanın
+    async function fetchStudent() {
+      try {
+        const response = await studentApi.getStudentById(id); // Spring Boot'tan öğrenci verisini alın
+        setStudent(response.data); // Veriyi state'e kaydedin
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchStudent();
+  }, [id]);
 
   useEffect(() => {
     getMenus();

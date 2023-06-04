@@ -1,5 +1,14 @@
 import * as React from "react";
-import { AppBar, Toolbar, Typography, Tooltip, Avatar, Menu, MenuItem, Box } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Tooltip,
+  Avatar,
+  Menu,
+  MenuItem,
+  Box,
+} from "@mui/material";
 import RoomIcon from "@mui/icons-material/Room";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -28,15 +37,32 @@ function AppBarForAdmin() {
     handleCloseUserMenu();
   };
 
-  const pages = ["Menu", "List Applicants", "List Student", "List Rooms", "Add Announcement", "List Permission"];
-  const links = ["/ListMenu", "/ListApplicant", "/ListStudents", "/ListRooms", "/AddAnnouncement", "/ListPermissions"];
+  const pages = [
+    "Menu",
+    "List Applicants",
+    "List Student",
+    "List Rooms",
+    "Add Announcement",
+    "List Permission",
+  ];
+  const links = [
+    "/ListMenu",
+    "/ListApplicant",
+    "/ListStudents",
+    "/ListRooms",
+    "/AddAnnouncement",
+    "/ListPermissions",
+  ];
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ backgroundColor: "#012169" }}>
         <Toolbar>
           <RoomIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography variant="h6" sx={{ flexGrow: 1, userSelect: "none", fontWeight: "bold" }}>
+          <Typography
+            variant="h6"
+            sx={{ flexGrow: 1, userSelect: "none", fontWeight: "bold" }}
+          >
             TEDORM
           </Typography>
           <Box sx={{ flexGrow: 50, display: "flex", justifyContent: "center" }}>
@@ -49,7 +75,8 @@ function AppBarForAdmin() {
                   marginLeft: 0.5,
                   marginRight: 0.5,
                   color: "white",
-                  backgroundColor: selectedItem === index ? "#011950" : "transparent",
+                  backgroundColor:
+                    selectedItem === index ? "#011950" : "transparent",
                   "&:hover": {
                     backgroundColor: "#011950",
                   },
@@ -93,8 +120,12 @@ function AppBarForAdmin() {
             onClose={handleCloseUserMenu}
             sx={{ marginTop: "25px" }}
           >
-            <MenuItem onClick={() => handleProfileClick("Profile")}>Profile</MenuItem>
-            <MenuItem onClick={() => handleProfileClick("Logout")}>Log Out</MenuItem>
+            <MenuItem onClick={() => handleProfileClick("Profile")}>
+              Profile
+            </MenuItem>
+            <MenuItem onClick={() => handleProfileClick("Logout")}>
+              Log Out
+            </MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
