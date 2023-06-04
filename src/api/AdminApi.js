@@ -16,4 +16,8 @@ export class AdminApi {
   getAdminById(id) {
     return axios.get("/admin/" + id);
   }
+
+  getIslemGecmisi() {
+    return axios.get("/islemGecmisi");
+  }
 }

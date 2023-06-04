@@ -19,6 +19,7 @@ import ListMenu from "./MenuPages/ListMenu";
 import ListMenuForStudent from "./MenuPages/ListMenuForStudent";
 import ListAdmin from "./AdminPages/ListAdmin";
 import ListRooms from "./RoomsPage/ListRooms";
+import ListIslemGecmisi from "./AdminPages/ListIslemGecmisi";
 function App() {
   return (
     <>
@@ -69,6 +70,7 @@ function App() {
             />
             <Route element={<ListAdmin />} path={"/ListAdmin"} />
             <Route element={<ListRooms />} path={"/ListRooms"} />
+            <Route element={<ListIslemGecmisi />} path={"/ListIslemGecmisi"} />
           </Routes>
         </UsernameProvider>
       </BrowserRouter>
