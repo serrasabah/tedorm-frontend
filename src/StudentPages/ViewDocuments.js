@@ -34,7 +34,11 @@ export default function ViewDocuments({ id }) {
       const contentType = response.headers["content-type"];
       console.log(contentType);
 
-      if (contentType === "image/png" || contentType === "image/jpeg") {
+      if (
+        contentType === "image/png" ||
+        contentType === "image/jpeg" ||
+        contentType === "image/jpg"
+      ) {
         // Handle image/png or image/jpeg
         const imageBlob = new Blob([response.data], { type: contentType });
         const imageUrl = URL.createObjectURL(imageBlob);

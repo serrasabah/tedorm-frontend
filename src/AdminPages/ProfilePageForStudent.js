@@ -1,14 +1,16 @@
 import * as React from "react";
 import {
   Box,
-  Container, Card,
+  Container,
+  Card,
   CardContent,
   Stack,
-  Typography, Divider,
+  Typography,
+  Divider,
   Unstable_Grid2 as Grid,
 } from "@mui/material";
 import { AccountProfile } from "../StudentPages/ProfilePage/AccountProfile";
-import AppBarForStudents from "../StudentPages/AppBarForStudent";
+import AppBarForAdmin from "./AppBarForAdmin";
 import { useState, useEffect } from "react";
 import { StudentApi } from "../api/StudentApi";
 import ViewDocuments from "../StudentPages/ViewDocuments";
@@ -37,7 +39,7 @@ function ProfilePageForStudent() {
 
   return (
     <div>
-      <AppBarForStudents />
+      <AppBarForAdmin />
       <title>Account</title>
       {student && ( // Eğer öğrenci verisi varsa, kullanabilirsiniz
         <Box component="main" sx={{ marginRight: 20, flexGrow: 1, py: 8 }}>
@@ -114,7 +116,7 @@ function ProfilePageForStudent() {
                       </CardContent>
                     </Card>
                     <Divider />
-                    <div style={{ display: "flex", padding: '10px' }}>
+                    <div style={{ display: "flex", padding: "10px" }}>
                       <DeleteStudent student={student} />
                     </div>
                   </Grid>

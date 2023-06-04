@@ -40,19 +40,17 @@ export default function StudentAvatar() {
   };
 
   const handleChangeFile = (event) => {
-    console.log(event);
     const field = event;
     setFormState(field);
     setFile(event);
   };
 
   async function uploadFile(formState) {
-    console.log(formState);
     const formData = new FormData();
     formData.append("avatar", file);
     formData.append("id", id); // Append the id to the formData object
-    console.log(id);
     const response = await fileApi.uploadAvatar(formData, id);
+    console.log("response" + response.value);
     const messageResponse = response.data;
     if (messageResponse.responseType === "SUCCESS") {
       toast.success(messageResponse.message);
@@ -76,11 +74,14 @@ export default function StudentAvatar() {
   return (
     <>
       <div>
-        <Button  sx={{
-                          width: "100%",
-                          marginLeft : "75%",
-                        }}
-                        variant="outlined" onClick={handleClickOpen}>
+        <Button
+          sx={{
+            width: "100%",
+            marginLeft: "75%",
+          }}
+          variant="outlined"
+          onClick={handleClickOpen}
+        >
           Upload Image
         </Button>
         <Dialog

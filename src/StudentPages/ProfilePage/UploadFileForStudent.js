@@ -8,12 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { toast } from "react-toastify";
 import { FileApi } from "../../api/FileApi";
-import {
-  Box,
-  Button,
- 
-  Unstable_Grid2 as Grid,
-} from "@mui/material";
+import { Box, Button, Unstable_Grid2 as Grid } from "@mui/material";
 
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -24,7 +19,7 @@ import { AccountProfileDetails } from "./AccountProfileDetails";
 import { DeleteStudent } from "./DeleteStudent";
 import { ChangePassword } from "./ChangePassword";
 
-const fileTypes = ["JPEG", "PNG", "PDF"];
+const fileTypes = ["JPEG", "PNG", "PDF", "JPG"];
 const fileApi = new FileApi();
 
 export default function UploadFileForStudent() {
@@ -92,12 +87,12 @@ export default function UploadFileForStudent() {
 
   return (
     <>
-        <div style={{ display: "flex", gap: "5px" }}>
+      <div style={{ display: "flex", gap: "5px" }}>
         <div>
-            <AccountProfileDetails/>  
+          <AccountProfileDetails />
         </div>
         <div>
-            <ChangePassword/>  
+          <ChangePassword />
         </div>
         <div>
           <Button variant="outlined" onClick={handleClickOpen}>
@@ -105,55 +100,51 @@ export default function UploadFileForStudent() {
           </Button>
         </div>
       </div>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">{"Upload File"}</DialogTitle>
-          <DialogContent sx={{ minWidth: 500 }}>
-            <Box>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">File</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={name}
-                  label="Age"
-                  onChange={handleChange}
-                  required // Add the 'required' attribute to the Select component
-                >
-                  <MenuItem value="vesikalik">Vesikalık</MenuItem>
-                  <MenuItem value="sağlik_belgesi">Sağlık belgesi</MenuItem>
-                  <MenuItem value="ogrenci_belgesi">öğrenci belgesi</MenuItem>
-                  <MenuItem value="adli_sicil_belgesi">
-                    Adli sicil belgesi
-                  </MenuItem>
-                  <MenuItem value="ikametgah_belgesi">
-                    Ikametgah belgesi
-                  </MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            <br></br>
-            <FileUploader
-              multiple={false}
-              handleChange={handleChangeFile}
-              name="image" // change the name to "image"
-              types={fileTypes}
-            />
-            <p>{file ? `File name: ${file.name}` : "no files uploaded yet"}</p>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={createFile} autoFocus>
-              Save
-            </Button>
-          </DialogActions>
-        </Dialog>
-   
-
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Upload File"}</DialogTitle>
+        <DialogContent sx={{ minWidth: 500 }}>
+          <Box>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">File</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={name}
+                label="Age"
+                onChange={handleChange}
+                required // Add the 'required' attribute to the Select component
+              >
+                <MenuItem value="vesikalik">Vesikalık</MenuItem>
+                <MenuItem value="sağlik_belgesi">Sağlık belgesi</MenuItem>
+                <MenuItem value="ogrenci_belgesi">öğrenci belgesi</MenuItem>
+                <MenuItem value="adli_sicil_belgesi">
+                  Adli sicil belgesi
+                </MenuItem>
+                <MenuItem value="ikametgah_belgesi">Ikametgah belgesi</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+          <br></br>
+          <FileUploader
+            multiple={false}
+            handleChange={handleChangeFile}
+            name="image" // change the name to "image"
+            types={fileTypes}
+          />
+          <p>{file ? `File name: ${file.name}` : "no files uploaded yet"}</p>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={createFile} autoFocus>
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
