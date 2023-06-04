@@ -1,13 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Divider,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography, } from "@mui/material";
 import * as React from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -28,11 +19,10 @@ export default function ViewDocuments({ id }) {
         console.error(error);
       }
     };
-
     fetchDocuments();
   }, [id]);
 
-  // ...
+
 
   const handleDownloadClick = async (fileName) => {
     try {
@@ -66,8 +56,6 @@ export default function ViewDocuments({ id }) {
     }
   };
 
-  // ...
-
   const handleDeleteClick = async (documentName, id) => {
     const response = await axios.delete(`/image/sil/${documentName}?id=${id}`);
     const messageResponse = response.data;
@@ -75,6 +63,9 @@ export default function ViewDocuments({ id }) {
     if (messageResponse.responseType === "SUCCESS") {
       toast.success(messageResponse.message);
       console.log(messageResponse);
+      const response = await axios.get(`/image/list/${id}`);
+      const documentList = response.data;
+      setDocuments(documentList);
     } else {
       toast.warning(messageResponse.message);
       console.log(messageResponse);

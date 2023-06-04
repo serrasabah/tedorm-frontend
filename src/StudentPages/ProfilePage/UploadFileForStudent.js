@@ -61,6 +61,7 @@ export default function UploadFileForStudent() {
     const messageResponse = response.data;
     if (messageResponse.responseType === "SUCCESS") {
       toast.success(messageResponse.message);
+      window.location.reload();
     } else {
       toast.warning(messageResponse.message);
     }
