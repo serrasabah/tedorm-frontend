@@ -30,7 +30,7 @@ function AppBarForAdmin() {
 
   const pages = ["Menu", "List Applicants", "List Student", "List Rooms", "Add Announcement", "List Permission"];
   const links = ["/ListMenu", "/ListApplicant", "/ListStudents", "/ListRooms", "/AddAnnouncement", "/ListPermissions"];
-  
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ backgroundColor: "#012169" }}>

@@ -14,6 +14,7 @@ import { StudentApi } from "../api/StudentApi";
 import ViewDocuments from "../StudentPages/ViewDocuments";
 import { useParams } from "react-router-dom";
 import { DeleteStudent } from "../StudentPages/ProfilePage/DeleteStudent";
+import AppBarForAdmin from "./AppBarForAdmin";
 
 function ProfilePageForStudent() {
   const [student, setStudent] = useState(null); // Öğrenci verisi için state tanımlayın
@@ -37,7 +38,7 @@ function ProfilePageForStudent() {
 
   return (
     <div>
-      <AppBarForStudents />
+      <AppBarForAdmin />
       <title>Account</title>
       {student && ( // Eğer öğrenci verisi varsa, kullanabilirsiniz
         <Box component="main" sx={{ marginRight: 20, flexGrow: 1, py: 8 }}>

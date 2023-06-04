@@ -125,7 +125,7 @@ export default function UploadFileForStudent() {
                 >
                   <MenuItem value="vesikalik">Vesikalık</MenuItem>
                   <MenuItem value="sağlik_belgesi">Sağlık belgesi</MenuItem>
-                  <MenuItem value="ogrenci_belgesi">öğrenci belgesi</MenuItem>
+                  <MenuItem value="ogrenci_belgesi">Öğrenci belgesi</MenuItem>
                   <MenuItem value="adli_sicil_belgesi">
                     Adli sicil belgesi
                   </MenuItem>

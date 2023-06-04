@@ -37,7 +37,7 @@ export default function PermissionFormForStudents() {
   const addAddressApi = new AddAddressApi();
   const studentApi = new StudentApi();
   const [student, setStudent] = useState(null);
-  const { id } = useParams(); // Obtain the id value from URL parameters
+  const { id } = useParams();
   const [user, setUser] = useState(null);
   const userApi = new UserApi();
 
@@ -51,6 +51,7 @@ export default function PermissionFormForStudents() {
   const [isAddAddressOpen, setAddAddressOpen] = useState(false);
   const [formState, setFormState] = useState({
     permissionDates: [null, null],
+    message: "",
   });
 
   const [formStateAddress, setFormStateAddress] = useState({});
@@ -114,9 +115,9 @@ export default function PermissionFormForStudents() {
       ...rest,
       permissionDateStart: startDate,
       permissionDateEnd: endDate,
-      studentId: id, // Pass the id value obtained from URL parameters
-      address: "", // Remove the address property
-      addressId: formStateAddress.addressId, // Use the addressId from formStateAddress
+      studentId: id,
+      address: "",
+      addressId: formStateAddress.addressId,
     };
     console.log(permissionData);
     const response = await permissionApi.addPermissions(permissionData);
@@ -124,7 +125,13 @@ export default function PermissionFormForStudents() {
     if (response.data.responseType === "SUCCESS") {
       toast.success(response.data.message);
     }
+
+    setFormState((prevState) => ({
+      ...prevState,
+      message: "",
+    }));
   }
+
   const theme = createTheme();
   const renderAddressOptions = () => {
     return addresses.map((addr) => (
@@ -148,8 +155,12 @@ export default function PermissionFormForStudents() {
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant="h5" sx={{ mr: 80 }}>
-              PermissionForm
+            <Typography
+              component="h1"
+              variant="h5"
+              sx={{ mr: 80, fontFamily: "Arial", fontWeight: "bold", fontSize: "2rem" }}
+            >
+              Permission Form
             </Typography>
             <Box
               sx={{
@@ -157,12 +168,7 @@ export default function PermissionFormForStudents() {
                 alignItems: "center",
               }}
             >
-              <Box
-                component="form"
-                noValidate
-                onSubmit={handleSubmit}
-                sx={{ mt: 3 }}
-              >
+              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <FormControl fullWidth xs={12}>
@@ -218,7 +224,7 @@ export default function PermissionFormForStudents() {
                       </LocalizationProvider>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12}>
+                 <Grid item xs={12}>
                     <FormControl fullWidth xs={12}>
                       <TextField
                         onChange={onInputChange}
@@ -228,6 +234,7 @@ export default function PermissionFormForStudents() {
                         multiline
                         rows={4}
                         defaultValue=""
+                        value={formState.message}
                       />
                     </FormControl>
                   </Grid>
@@ -249,9 +256,17 @@ export default function PermissionFormForStudents() {
                       label="I accept the confidentiality of information."
                     />
                   </Grid>
-                </Grid>
+               </Grid>
                 <Button
-                  onClick={() => addPermission(formState)}
+                  onClick={() => {
+                    addPermission(formState)
+                    setFormState({
+                      ...formState,
+                      allowExtraEmails: false,
+                      permissionDates: [null, null],
+                    });
+                    setAddress("");
+                  }}
                   type="submit"
                   fullWidth
                   variant="contained"
@@ -259,7 +274,9 @@ export default function PermissionFormForStudents() {
                   disabled={
                     !address ||
                     formState.permissionDates[0] === null ||
-                    formState.permissionDates[1] === null
+                    formState.permissionDates[1] === null ||
+                    !formState.allowExtraEmails ||
+                    formState.message.trim().length === 0
                   }
                 >
                   Add

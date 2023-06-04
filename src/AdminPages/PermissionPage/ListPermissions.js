@@ -15,11 +15,13 @@ import {
     DialogContent,
     DialogTitle,
   } from "@mui/material";
+import { StudentApi } from "../../api/StudentApi";
 function ListPermissions() {
     const [selectionModel, setSelectionModel] = useState();
     const [permissions, setPermissions] = useState([]);
     const permissionApi = new AddPermissionApi();
     const addAddressApi = new AddAddressApi();
+    const studentApi = new StudentApi();
     const [openDelete, setOpenDelete] = useState(false);
     const [openUpdate, setOpenUpdate] = useState(false);
     const theme = useTheme();
@@ -41,7 +43,16 @@ function ListPermissions() {
         const newAddress = response.data; // Get the newly added address
         setPermissions(newAddress); // Add the new address to the permissions state
     }
-
+    async function fetchStudentName(studentId) {
+      try {
+        const response = await studentApi.getStudentById(studentId);
+        console.log(response.data.name);
+        return response.data.name; // Assuming the student object has a "name" property
+      } catch (error) {
+        console.error(error);
+        return "";
+      }
+    }
     async function deleteCell(selectedId) {
         try {
             const response = (await permissionApi.deletePermissions(selectedId));
@@ -108,7 +119,12 @@ function ListPermissions() {
         {
             field: "message",
             headerName: "Message",
-            width: 450,
+            width: 250,
+        },
+        {
+          field: "student",
+          headerName: "Student",
+          width: 150,
         },
         {
             field: "actions",
