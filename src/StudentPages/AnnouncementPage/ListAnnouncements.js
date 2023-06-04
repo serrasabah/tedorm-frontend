@@ -55,7 +55,7 @@ function ListAnnouncement() {
         {
             field: "message",
             headerName: "Message",
-            width: 350,
+            width: 940,
         },
     ];
 
