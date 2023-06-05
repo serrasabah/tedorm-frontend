@@ -19,6 +19,7 @@ import ListMenu from "./MenuPages/ListMenu";
 import ListMenuForStudent from "./MenuPages/ListMenuForStudent";
 import ListAdmin from "./AdminPages/ListAdmin";
 import ListRooms from "./RoomsPage/ListRooms";
+import ListIslemGecmisi from "./AdminPages/ListIslemGecmisi";
 import ListRequest from "./AdminPages/RequestPage/ListRequest";
 import AddRequest from "./StudentPages/RequestPage/AddRequest";
 function App() {
@@ -75,8 +76,8 @@ function App() {
             />
             <Route element={<ListAdmin />} path={"/ListAdmin"} />
             <Route element={<ListRooms />} path={"/ListRooms"} />
+            <Route element={<ListIslemGecmisi />} path={"/ListIslemGecmisi"} />
             <Route element={<ListRequest />} path={"/ListRequest"} />
-
           </Routes>
         </UsernameProvider>
       </BrowserRouter>

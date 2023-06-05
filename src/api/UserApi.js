@@ -19,6 +19,9 @@ export class UserApi {
   getStudentByUserId(id) {
     return axios.get("/user/student/" + id);
   }
+  getAdminByUserId(id) {
+    return axios.get("/user/admin/" + id);
+  }
   getUserByUsername(username) {
     return axios.get("/user/" + username);
   }

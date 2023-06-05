@@ -52,6 +52,12 @@ function ListMenu() {
       editable: true,
     },
     {
+      field: "puan",
+      headerName: "Rating",
+      width: 80,
+      editable: true,
+    },
+    {
       field: "actions",
       type: "actions",
       headerName: "Actions",

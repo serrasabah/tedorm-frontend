@@ -45,6 +45,7 @@ function AppBarForAdmin() {
     "List Request",
     "Add Announcement",
     "List Permission",
+    "List Operation History",
   ];
   const links = [
     "/ListMenu",
@@ -54,6 +55,7 @@ function AppBarForAdmin() {
     "/ListRequest",
     "/AddAnnouncement",
     "/ListPermissions",
+    "/ListIslemGecmisi",
   ];
 
   return (
