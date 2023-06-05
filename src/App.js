@@ -19,6 +19,8 @@ import ListMenu from "./MenuPages/ListMenu";
 import ListMenuForStudent from "./MenuPages/ListMenuForStudent";
 import ListAdmin from "./AdminPages/ListAdmin";
 import ListRooms from "./RoomsPage/ListRooms";
+import ListRequest from "./AdminPages/RequestPage/ListRequest";
+import AddRequest from "./StudentPages/RequestPage/AddRequest";
 function App() {
   return (
     <>
@@ -61,6 +63,10 @@ function App() {
               element={<ListAnnouncement />}
               path={"/ListAnnouncement/:id"}
             />
+             <Route
+              element={<AddRequest/>}
+              path={"/AddRequest/:id"}
+            />
             <Route element={<ListApplicant />} path={"/ListApplicant"} />
             <Route element={<ListMenu />} path={"/ListMenu"} />
             <Route
@@ -69,6 +75,8 @@ function App() {
             />
             <Route element={<ListAdmin />} path={"/ListAdmin"} />
             <Route element={<ListRooms />} path={"/ListRooms"} />
+            <Route element={<ListRequest />} path={"/ListRequest"} />
+
           </Routes>
         </UsernameProvider>
       </BrowserRouter>

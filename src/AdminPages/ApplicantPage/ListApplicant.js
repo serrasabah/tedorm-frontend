@@ -202,7 +202,6 @@ function ListApplicant() {
             justifyContent: "flex-start",
           }}
         >
-          sx={{ width: "130%", m: "2rem", display: "flex",  margin: "2rem auto 0" ,justifyContent: "flex-start" }} >
           <Stack direction="row" spacing={1}></Stack>
           <Box
             sx={{

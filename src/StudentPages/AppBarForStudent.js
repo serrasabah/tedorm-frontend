@@ -30,8 +30,8 @@ function AppBarForStudents() {
     handleCloseUserMenu();
   };
 
-  const pages = ["Home Page", "Menu", "Announcement", "Take Permission"];
-  const links = [`/MainPageForStudent/${id}`, `/ListMenuForStudent/${id}`, `/ListAnnouncement/${id}`, `/PermissionFormForStudents/${id}`];
+  const pages = ["Home Page", "Menu", "Announcement","Add Request", "Take Permission"];
+  const links = [`/MainPageForStudent/${id}`, `/ListMenuForStudent/${id}`, `/ListAnnouncement/${id}`,`/AddRequest/${id}` ,`/PermissionFormForStudents/${id}`];
 
   return (
     <Box sx={{ flexGrow: 1 }}>
