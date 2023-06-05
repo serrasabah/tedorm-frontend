@@ -197,7 +197,7 @@ function ListApplicant() {
         <Box
           sx={{
             width: "130%",
-            m: "2rem",
+            m: "2rem auto 0 ",
             display: "flex",
             justifyContent: "flex-start",
           }}
