@@ -44,15 +44,9 @@ export const AccountProfile = () => {
     <>
       <Card>
         <CardContent>
-          <Box
-            sx={{
-              alignItems: "center",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <img src={img} alt="icons" />
-            <Typography gutterBottom variant="h5">
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <Avatar src={img} alt="Profile Avatar" sx={{ width: 200, height: 200, borderRadius: "50%" }} />
+            <Typography gutterBottom variant="h5" sx={{ fontWeight: "bold", mt: 2 }}>
               {user.name}
             </Typography>
           </Box>
@@ -63,11 +57,11 @@ export const AccountProfile = () => {
         </CardActions>
       </Card>
       <div>
-        <div style={{ marginTop: "10px" }}></div> {/* 10 piksel boşluk */}
-        {/* ... */}
-        {/* ... */}
+        <div style={{ marginTop: "10px" }}></div> {}
+        {}
+        {}
         <UploadFileForStudent />
-        {/* ... */}
+        {}
       </div>
     </>
   );
