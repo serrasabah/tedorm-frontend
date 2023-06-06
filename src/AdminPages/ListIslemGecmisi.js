@@ -21,7 +21,7 @@ function ListIslemGecmisi() {
     {
       field: "message",
       headerName: "Message",
-      width: 800,
+      width: 1030,
       editable: false,
     },
   ];
@@ -46,7 +46,7 @@ function ListIslemGecmisi() {
     <div>
       <AppBarForAdmin />
       <Container>
-        <Box sx={{ width: "100%", m: "2rem" }}>
+        <Box sx={{ width: "100%", m: "2rem auto 0" }}>
           <Stack direction="row" spacing={1}></Stack>
           <Box sx={{ height: 600, mt: 1 }}>
             <DataGrid

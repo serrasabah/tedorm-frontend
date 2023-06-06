@@ -196,10 +196,9 @@ function ListApplicant() {
       <Container>
         <Box
           sx={{
-            width: "130%",
-            m: "2rem",
+            mt: "2rem",
             display: "flex",
-            justifyContent: "flex-start",
+            justifyContent: "center",
           }}
         >
           <Stack direction="row" spacing={1}></Stack>
@@ -208,7 +207,7 @@ function ListApplicant() {
               height: 600,
               mt: 1,
               display: "flex",
-              justifyContent: "flex-start",
+              justifyContent: "center",
             }}
           >
             <DataGrid

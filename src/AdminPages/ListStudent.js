@@ -30,25 +30,25 @@ function ListStudent() {
     {
       field: "name",
       headerName: "Name",
-      width: 120,
+      width: 250,
       editable: true,
     },
     {
       field: "surname",
       headerName: "Surname",
-      width: 120,
+      width: 250,
       editable: false,
     },
     {
       field: "phoneNumber",
       headerName: "Phone Number",
-      width: 200,
+      width: 230,
       editable: true,
     },
     {
       field: "roomNumber",
       headerName: "Room Number",
-      width: 110,
+      width: 210,
       editable: true,
     },
     {
@@ -168,7 +168,7 @@ function ListStudent() {
     <div>
       <AppBarForAdmin />
       <Container>
-        <Box sx={{ width: "75%", m: "2rem", margin: "2rem auto 0" }}>
+        <Box sx={{ width: "100%", m: "2rem", margin: "2rem auto 0" }}>
           <Stack direction="row" spacing={1}></Stack>
           <Box sx={{ height: 600, mt: 1 }}>
             <DataGrid

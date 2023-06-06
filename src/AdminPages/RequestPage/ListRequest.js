@@ -70,18 +70,18 @@ console.log(response);
     {
       field: "id",
       headerName: "Number",
-      width: 100,
+      width: 130,
       editable: false,
     },
     {
       field: "name",
       headerName: "Student",
-      width: 150,
+      width: 180,
     },
     {
       field: "message",
       headerName: "Request",
-      width: 650,
+      width: 700,
     },
 
     {
@@ -106,7 +106,7 @@ console.log(response);
     <div>
       <AppBarForAdmin />
       <Container>
-        <Box sx={{ width: "90%", m: "2rem auto 0" }}>
+        <Box sx={{ width: "100%", m: "2rem auto 0" }}>
           <Stack direction="row" spacing={1}></Stack>
           <Box sx={{ height: 600, mt: 1 }}>
             <DataGrid

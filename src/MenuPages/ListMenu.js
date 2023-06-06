@@ -242,7 +242,7 @@ function ListMenu() {
     <div>
       <AppBarForAdmin />
       <Container>
-        <Box sx={{ width: "105%", margin: "2rem auto 0"}}>
+        <Box sx={{ margin: "2rem auto 0"}}>
           <Stack direction="row" spacing={1}></Stack>
           <Box sx={{ height: 600, mt: 1 }}>
             <DataGrid

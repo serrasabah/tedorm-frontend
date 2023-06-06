@@ -90,18 +90,18 @@ function ListPermissions() {
     {
       field: "id",
       headerName: "Number",
-      width: 100,
+      width: 80,
       editable: false,
     },
     {
       field: "permissionDateStart",
       headerName: "Start Date",
-      width: 150,
+      width: 170,
     },
     {
       field: "permissionDateEnd",
       headerName: "End Date",
-      width: 150,
+      width: 170,
     },
     {
       field: "name",
@@ -111,7 +111,7 @@ function ListPermissions() {
     {
       field: "message",
       headerName: "Message",
-      width: 350,
+      width: 450,
     },
 
     {
@@ -136,7 +136,7 @@ function ListPermissions() {
     <div>
       <AppBarForAdmin />
       <Container>
-        <Box sx={{ width: "100%", m: "2rem" }}>
+        <Box sx={{ width: "100%", m: "2rem auto 0" }}>
           <Stack direction="row" spacing={1}></Stack>
           <Box sx={{ height: 600, mt: 1 }}>
             <DataGrid

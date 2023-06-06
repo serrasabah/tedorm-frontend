@@ -30,32 +30,32 @@ function ListRooms() {
     {
       field: "id",
       headerName: "ID",
-      width: 100,
+      width: 240,
       editable: false,
     },
     {
       field: "roomType",
       headerName: "Room Type",
-      width: 120,
+      width: 240,
       editable: true,
     },
     {
       field: "availableSlots",
       headerName: "Suitability of the room",
-      width: 150,
+      width: 240,
       editable: true,
     },
     {
       field: "roomNumber",
       headerName: "Room Number",
-      width: 120,
+      width: 240,
       editable: false,
     },
     {
       field: "actions",
       type: "actions",
       headerName: "Actions",
-      width: 100,
+      width: 150,
       cellClassName: "actions",
       getActions: ({ id }) => {
         return [
@@ -236,7 +236,7 @@ function ListRooms() {
     <div>
       <AppBarForAdmin />
       <Container>
-        <Box sx={{ width: "55%", margin: "2rem auto 0" }}>
+        <Box sx={{ width: "100%", margin: "2rem auto 0" }}>
           <Stack direction="row" spacing={1}></Stack>
           <Box sx={{ height: 600, mt: 1 }}>
             <DataGrid
