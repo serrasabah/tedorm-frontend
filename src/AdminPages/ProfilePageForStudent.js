@@ -1,138 +1,175 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   Box,
-  Container,
   Card,
   CardContent,
-  Stack,
-  Typography,
+  CardHeader,
+  Container,
   Divider,
-  Unstable_Grid2 as Grid,
+  Grid,
+  Typography,
 } from "@mui/material";
-import { AccountProfileA } from "../StudentPages/ProfilePage/AccountProfileA";
 import AppBarForAdmin from "./AppBarForAdmin";
-import { useState, useEffect } from "react";
-import { StudentApi } from "../api/StudentApi";
+import { AccountProfileA } from "../StudentPages/ProfilePage/AccountProfileA";
 import ViewDocuments from "../StudentPages/ViewDocuments";
-import { useParams } from "react-router-dom";
+import { StudentApi } from "../api/StudentApi";
 import { DeleteStudent } from "../StudentPages/ProfilePage/DeleteStudent";
 
 function ProfilePageForStudent() {
-  const [student, setStudent] = useState(null); // Öğrenci verisi için state tanımlayın
+  const { id } = useParams();
+  const [student, setStudent] = useState(null);
   const studentApi = new StudentApi();
 
-  const { id } = useParams();
-
   useEffect(() => {
-    // Component yüklendiğinde öğrenci verisini almak için useEffect kullanın
-    async function fetchStudent() {
-      try {
-        const response = await studentApi.getStudentById(id); // Spring Boot'tan öğrenci verisini alın
-        setStudent(response.data); // Veriyi state'e kaydedin
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
     fetchStudent();
   }, [id]);
 
+  const fetchStudent = async () => {
+    try {
+      const response = await studentApi.getStudentById(id);
+      setStudent(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div>
+    <>
       <AppBarForAdmin />
-      <title>Account</title>
-      {student && ( // Eğer öğrenci verisi varsa, kullanabilirsiniz
-        <Box component="main" sx={{ marginRight: 20, flexGrow: 1, py: 8 }}>
-          <Container maxWidth="lg">
-            <Stack spacing={3}>
-              <div>
-                <Typography variant="h4">{student.name}</Typography>{" "}
-                {/* Öğrenci adını kullanın */}
-              </div>
-              <div>
-                <Grid container spacing={3}>
-                  <Grid xs={15} md={15} lg={4}>
-                    <AccountProfileA />
-                  </Grid>
-                  <Grid xs={12} md={6} lg={5}>
-                    <Card>
-                      <CardContent>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                          }}
-                        >
-                          <div>
-                            <Box m={0.5}>
-                              <Typography fontFamily="Arial" variant="h6">
-                                Name: {student.name}
-                              </Typography>
-                            </Box>
-                            <Divider />
-                            <Box m={0.5}>
-                              <Typography variant="h6">
-                                Surname: {student.surname}
-                              </Typography>
-                            </Box>
-                            <Divider />
-                            <Box m={0.5}>
-                              <Typography variant="h6">
-                                Email: {student.email}
-                              </Typography>
-                            </Box>
-                            <Divider />
-                            <Box m={0.5}>
-                              <Typography variant="h6">
-                                Student Number: {student.studentNumber}
-                              </Typography>
-                            </Box>
-                            <Divider />
-                            <Box m={0.5}>
-                              <Typography variant="h6">
-                                Age: {student.age}
-                              </Typography>
-                            </Box>
-                            <Divider />
-                            <Box m={0.5}>
-                              <Typography variant="h6">
-                                Room Number: {student.roomNumber}
-                              </Typography>
-                            </Box>
-                            <Divider />
-                            <Box m={0.5}>
-                              <Typography variant="h6">
-                                University: {student.university}
-                              </Typography>
-                            </Box>
-                            <Divider />
-                            <Box m={0.5}>
-                              <Typography variant="h6">
-                                Phone Number: {student.phoneNumber}
-                              </Typography>
-                            </Box>
-                          </div>
-                        </Box>
-                      </CardContent>
-                    </Card>
-                    <Divider />
-                    <div style={{ display: "flex", padding: "10px" }}>
-                      <DeleteStudent student={student} />
-                    </div>
-                  </Grid>
-                  <Grid xs={12} md={6} lg={6}>
-                    <div>
-                      <Typography variant="h4">Files</Typography>{" "}
-                    </div>
+      <Box component="main" sx={{ flexGrow: 1, py: 8 }}>
+        <Container maxWidth="lg">
+          {student && (
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6}>
+                <AccountProfileA student={student} />
+                <DeleteStudent student={student} />
+                <Card>
+                  <CardHeader title="Files" />
+                  <Divider />
+                  <CardContent>
                     <ViewDocuments id={id} />
-                  </Grid>
-                </Grid>
-              </div>
-            </Stack>
-          </Container>
-        </Box>
-      )}
-    </div>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Card>
+                  <CardHeader title="Student Information" />
+                  <Divider />
+                  <CardContent>
+                    <Box sx={{ display: "flex", flexDirection: "column" }}>
+                      <Typography
+                        variant="h6"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        Name:
+                      </Typography>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        {student.name}
+                      </Typography>
+                      <Divider sx={{ my: 2 }} />
+                      <Typography
+                        variant="h6"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        Surname:
+                      </Typography>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        {student.surname}
+                      </Typography>
+                      <Divider sx={{ my: 2 }} />
+                      <Typography
+                        variant="h6"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        Email:
+                      </Typography>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        {student.email}
+                      </Typography>
+                      <Divider sx={{ my: 2 }} />
+                      <Typography
+                        variant="h6"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        Student Number:
+                      </Typography>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        {student.studentNumber}
+                      </Typography>
+                      <Divider sx={{ my: 2 }} />
+                      <Typography
+                        variant="h6"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        Birth Date:
+                      </Typography>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        {student.age}
+                      </Typography>
+                      <Divider sx={{ my: 2 }} />
+                      <Typography
+                        variant="h6"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        Room Number:
+                      </Typography>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        {student.roomNumber}
+                      </Typography>
+                      <Divider sx={{ my: 2 }} />
+                      <Typography
+                        variant="h6"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        University:
+                      </Typography>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        {student.university}
+                      </Typography>
+                      <Divider sx={{ my: 2 }} />
+                      <Typography
+                        variant="h6"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        Phone Number:
+                      </Typography>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ fontFamily: "Montserrat, sans-serif" }}
+                      >
+                        {student.phoneNumber}
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+          )}
+        </Container>
+      </Box>
+    </>
   );
 }
 

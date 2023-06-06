@@ -39,8 +39,8 @@ export const DeleteStudent = ({ student }) => {
 
   return (
     <>
-      <div>
-        <Button variant="outlined" onClick={handleClickOpen} color="error">
+      <div style={{ textAlign: "center", marginTop: "10px" }}>
+        <Button variant="outlined" onClick={handleClickOpen} color="error" style={{ width: "80%" }}>
           Delete Student
         </Button>
         <Dialog
