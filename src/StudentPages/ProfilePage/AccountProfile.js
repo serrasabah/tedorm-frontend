@@ -78,11 +78,11 @@ export const AccountProfile = () => {
         </CardActions>
       </Card>
       <div>
-        <div style={{ marginTop: "10px" }}></div> {/* 10 piksel boşluk */}
-        {/* ... */}
-        {/* ... */}
+        <div style={{ marginTop: "10px" }}></div> {}
+        {}
+        {}
         <UploadFileForStudent />
-        {/* ... */}
+        {}
       </div>
     </>
   );

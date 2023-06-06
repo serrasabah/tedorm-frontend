@@ -3,11 +3,7 @@ import { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { toast } from "react-toastify";
 import { FileApi } from "../api/FileApi";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
+import { DialogActions, DialogContent, Dialog, Button, DialogTitle, Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 const fileTypes = ["JPEG", "PNG"];
@@ -68,16 +64,14 @@ export default function StudentAvatar() {
   return (
     <>
       <div>
-        <Button
-          sx={{
-            width: "100%",
-            marginLeft: "75%",
-          }}
-          variant="outlined"
-          onClick={handleClickOpen}
-        >
-          Upload Image
-        </Button>
+        <Box sx={{ width: 540, display: "flex", justifyContent: "center" }}>
+            <Button
+              variant="outlined"
+              onClick={handleClickOpen}
+            >
+              Upload Image
+            </Button>
+        </Box>
         <Dialog
           open={open}
           onClose={handleClose}

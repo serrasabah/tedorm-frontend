@@ -109,7 +109,7 @@ function ApplicantPage({ isOpen, close, submit }) {
           sx={{ m: 0.5 }}
           onChange={onChangeFunction}
           name="tcKimlikNo"
-          label="Kimlik No"
+          label="Id Number"
           fullWidth
         />
         <TextField
