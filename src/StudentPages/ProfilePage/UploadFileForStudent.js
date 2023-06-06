@@ -87,19 +87,25 @@ export default function UploadFileForStudent() {
 
   return (
     <>
-      <div style={{ display: "flex", gap: "5px" }}>
-        <div>
-          <AccountProfileDetails />
-        </div>
-        <div>
-          <ChangePassword />
-        </div>
-        <div>
-          <Button variant="outlined" onClick={handleClickOpen}>
-            Add File
-          </Button>
-        </div>
-      </div>
+      <div
+  style={{
+    display: "flex",
+    justifyContent: "center",
+    gap: "5px",
+  }}
+>
+  <div>
+    <AccountProfileDetails />
+  </div>
+  <div>
+    <ChangePassword />
+  </div>
+  <div>
+    <Button variant="outlined" onClick={handleClickOpen}>
+      Add File
+    </Button>
+  </div>
+</div>
       <Dialog
         open={open}
         onClose={handleClose}
