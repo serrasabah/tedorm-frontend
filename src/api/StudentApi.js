@@ -14,7 +14,7 @@ export class StudentApi {
     return axios.put("/students/" + id, newData);
   }
   updateStudentForAdmin(id, newData) {
-    return axios.put("/students/admin" + id, newData);
+    return axios.put("/students/x/" + id, newData);
   }
   getStudentById(id) {
     return axios.get("/students/" + id);

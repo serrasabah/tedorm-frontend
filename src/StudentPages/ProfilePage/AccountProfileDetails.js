@@ -49,8 +49,9 @@ export const AccountProfileDetails = ({ student }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const response = await studentApi.updateStudents(id, values);
+    console.log(values);
+    console.log(id);
+    const response = await studentApi.updateStudentForAdmin(id, values);
     const messageResponse = response.data;
     if (messageResponse.responseType === "SUCCESS") {
       toast.success(messageResponse.message);
@@ -93,15 +94,32 @@ export const AccountProfileDetails = ({ student }) => {
                 subheader="The information can be edited"
                 title="Profile"
               />
-              <CardContent sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <Box sx={{ m: -1.5, display: "flex", justifyContent: "center" }}>
+              <CardContent
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Box
+                  sx={{ m: -1.5, display: "flex", justifyContent: "center" }}
+                >
                   <PhoneInput
                     country={"tr"}
                     value={values.phoneNumber}
                     onChange={handlePhoneNumberChange}
-                    containerStyle={{margin:'20px', width:'350px', height:'65px'}}
-                    dropdownStyle={{height:'70px'}}
-                    inputStyle={{width:'300px', height:'65px', fontSize:'24px', marginLeft:'10px'}}
+                    containerStyle={{
+                      margin: "20px",
+                      width: "350px",
+                      height: "65px",
+                    }}
+                    dropdownStyle={{ height: "70px" }}
+                    inputStyle={{
+                      width: "300px",
+                      height: "65px",
+                      fontSize: "24px",
+                      marginLeft: "10px",
+                    }}
                     inputProps={{
                       minLength: 5,
                       maxLength: 18,
@@ -113,16 +131,19 @@ export const AccountProfileDetails = ({ student }) => {
                 </Box>
               </CardContent>
               <CardActions
-                sx={{ 
-                  justifyContent: "flex-end", 
-                  pb: 2, 
+                sx={{
+                  justifyContent: "flex-end",
+                  pb: 2,
                   pr: 2,
                 }}
               >
                 <Button
                   variant="contained"
                   type="submit"
-                  disabled={!values.phoneNumber || !isPhoneNumberValid(values.phoneNumber)}
+                  disabled={
+                    !values.phoneNumber ||
+                    !isPhoneNumberValid(values.phoneNumber)
+                  }
                 >
                   Save Details
                 </Button>
