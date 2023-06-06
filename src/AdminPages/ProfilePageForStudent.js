@@ -9,7 +9,7 @@ import {
   Divider,
   Unstable_Grid2 as Grid,
 } from "@mui/material";
-import { AccountProfile } from "../StudentPages/ProfilePage/AccountProfile";
+import { AccountProfileA } from "../StudentPages/ProfilePage/AccountProfileA";
 import AppBarForAdmin from "./AppBarForAdmin";
 import { useState, useEffect } from "react";
 import { StudentApi } from "../api/StudentApi";
@@ -52,7 +52,7 @@ function ProfilePageForStudent() {
               <div>
                 <Grid container spacing={3}>
                   <Grid xs={15} md={15} lg={4}>
-                    <AccountProfile />
+                    <AccountProfileA />
                   </Grid>
                   <Grid xs={12} md={6} lg={5}>
                     <Card>
