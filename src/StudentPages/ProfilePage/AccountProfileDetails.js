@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Box,
   Button,
@@ -7,33 +7,27 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  TextField,
-  Unstable_Grid2 as Grid,
 } from "@mui/material";
-import * as React from "react";
-import { useParams } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useParams } from "react-router-dom";
 import { StudentApi } from "../../api/StudentApi";
 import { toast } from "react-toastify";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 export const AccountProfileDetails = ({ student }) => {
   const [formState, setFormState] = useState({});
-  const [file, setFile] = useState(null);
-  const [name, setName] = useState("");
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const { id } = useParams();
   const studentApi = new StudentApi();
 
   const [values, setValues] = useState({
-    // university: student.university,
-    //email: student.email,
-    //phoneNumber: student.phoneNumber,
-    //roomNumber: student.roomNumber,
+    phoneNumber: "",
   });
 
   const handleClickOpen = () => {
-    resetFileAndName();
+    resetFormState();
     setOpen(true);
   };
 
@@ -41,10 +35,10 @@ export const AccountProfileDetails = ({ student }) => {
     setOpen(false);
   };
 
-  function resetFileAndName() {
-    setFile(null);
-    setName("");
-  }
+  const resetFormState = () => {
+    setFormState({});
+    setValues({ phoneNumber: "" });
+  };
 
   const handleChange = useCallback((event) => {
     setValues((prevState) => ({
@@ -52,14 +46,6 @@ export const AccountProfileDetails = ({ student }) => {
       [event.target.name]: event.target.value,
     }));
   }, []);
-
-  function onChangeFunction(event) {
-    const name = event.target.name;
-    const value = event.target.value;
-    const newState = { ...formState };
-    newState[name] = value;
-    setFormState(newState);
-  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -74,6 +60,18 @@ export const AccountProfileDetails = ({ student }) => {
     setOpen(false);
   };
 
+  const handlePhoneNumberChange = (value) => {
+    setValues((prevState) => ({
+      ...prevState,
+      phoneNumber: value || "",
+    }));
+  };
+
+  const isPhoneNumberValid = (phoneNumber) => {
+    const phoneNumberRegex = /^\d{5,18}$/;
+    return phoneNumberRegex.test(phoneNumber);
+  };
+
   return (
     <>
       <div>
@@ -85,66 +83,50 @@ export const AccountProfileDetails = ({ student }) => {
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
+          maxWidth="sm"
+          fullWidth
         >
-          <DialogTitle id="alert-dialog-title">{"Update Student"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">Update Student</DialogTitle>
           <form autoComplete="off" noValidate onSubmit={handleSubmit}>
-            <Card>
+            <Card sx={{ minWidth: 500 }}>
               <CardHeader
                 subheader="The information can be edited"
                 title="Profile"
               />
-              <CardContent sx={{ pt: 0 }}>
-                <Box sx={{ m: -1.5 }}>
-                  <Grid container spacing={3}>
-                    <Grid xs={12} md={6}>
-                      <TextField
-                        fullWidth
-                        label="Email Address"
-                        name="email"
-                        onChange={handleChange}
-                        required
-                        value={values.email}
-                      />
-                    </Grid>
-                    <Grid xs={12} md={6}>
-                      <TextField
-                        fullWidth
-                        label="University"
-                        name="university"
-                        onChange={handleChange}
-                        required
-                        value={values.university}
-                      />
-                    </Grid>
-                    <Grid xs={12} md={6}>
-                      <TextField
-                        fullWidth
-                        label="Phone Number"
-                        name="phoneNumber"
-                        onChange={handleChange}
-                        required
-                        value={values.phoneNumber}
-                      />
-                    </Grid>
-                    <Grid xs={12} md={6}>
-                      <TextField
-                        fullWidth
-                        label="Room Number"
-                        name="roomNumber"
-                        onChange={handleChange}
-                        required
-                        value={values.roomNumber}
-                      />
-                    </Grid>
-                    <Grid xs={12} md={6}></Grid>
-                  </Grid>
+              <CardContent sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <Box sx={{ m: -1.5, display: "flex", justifyContent: "center" }}>
+                  <PhoneInput
+                    country={"tr"}
+                    value={values.phoneNumber}
+                    onChange={handlePhoneNumberChange}
+                    containerStyle={{margin:'20px', width:'350px', height:'65px'}}
+                    dropdownStyle={{height:'70px'}}
+                    inputStyle={{width:'300px', height:'65px', fontSize:'24px', marginLeft:'10px'}}
+                    inputProps={{
+                      minLength: 5,
+                      maxLength: 18,
+                    }}
+                    buttonStyle={{
+                      width: "40px",
+                    }}
+                  />
                 </Box>
               </CardContent>
-              <Divider />
-              <CardActions sx={{ justifyContent: "flex-end" }}>
-                <Button variant="contained" type="submit">
-                  Save details
+              <CardActions
+                sx={{ 
+                  justifyContent: "flex-end", 
+                  pb: 2, 
+                  pr: 2,
+                }}
+              >
+                <Button
+                  variant="contained"
+                  type="submit"
+                  disabled={!values.phoneNumber || !isPhoneNumberValid(values.phoneNumber)}
+                >
+                  Save Details
                 </Button>
+                <Button onClick={handleClose}>Cancel</Button>
               </CardActions>
             </Card>
           </form>
