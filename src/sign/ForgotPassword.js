@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -65,7 +65,7 @@ export const ForgotPassword = () => {
     <>
       <div>
         <Button variant="outlined" onClick={handleClickOpen}>
-          Change Password
+          Forgot Password
         </Button>
         <Dialog
           open={open}

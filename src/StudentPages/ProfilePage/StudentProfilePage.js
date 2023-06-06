@@ -42,7 +42,7 @@ function StudentProfilePage() {
           {student && (
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
-                <AccountProfile student={student} />
+                <AccountProfile />
                 <Card>
                   <CardHeader title="Files" />
                   <Divider />

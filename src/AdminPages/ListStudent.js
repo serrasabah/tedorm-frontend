@@ -249,7 +249,7 @@ function ListStudent() {
                   <TextField
                     error={textFieldValues.tcKimlikNo === ""}
                     id="outlined-error"
-                    label="tcKimlikNo"
+                    label="Id Number"
                     value={textFieldValues.tcKimlikNo}
                     onChange={(event) =>
                       handleTextFieldChange(event, "tcKimlikNo")
@@ -258,7 +258,7 @@ function ListStudent() {
                   <TextField
                     error={textFieldValues.studentNumber === ""}
                     id="outlined-error"
-                    label="studentNumber"
+                    label="Student Number"
                     value={textFieldValues.studentNumber}
                     onChange={(event) =>
                       handleTextFieldChange(event, "studentNumber")
@@ -267,7 +267,7 @@ function ListStudent() {
                   <TextField
                     error={textFieldValues.age === ""}
                     id="outlined-error"
-                    label="age"
+                    label="Age"
                     value={textFieldValues.age}
                     type="date"
                     onChange={(event) => handleTextFieldChange(event, "age")}
@@ -275,7 +275,7 @@ function ListStudent() {
                   <TextField
                     error={textFieldValues.roomNumber === ""}
                     id="outlined-error"
-                    label="roomNumber"
+                    label="Room Number"
                     value={textFieldValues.roomNumber}
                     onChange={(event) =>
                       handleTextFieldChange(event, "roomNumber")

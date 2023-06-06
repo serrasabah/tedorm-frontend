@@ -56,14 +56,18 @@ export default function UploadFileForStudent() {
     formData.append("image", file);
     formData.append("name", name);
     formData.append("id", id); // Append the id to the formData object
-    console.log(id);
-    const response = await fileApi.uploadFiles(formData, name, id);
-    const messageResponse = response.data;
-    if (messageResponse.responseType === "SUCCESS") {
-      toast.success(messageResponse.message);
-      window.location.reload();
+    console.log(file);
+    if (file.size < 1048576) {
+      const response = await fileApi.uploadFiles(formData, name, id);
+      const messageResponse = response.data;
+      if (messageResponse.responseType === "SUCCESS") {
+        toast.success(messageResponse.message);
+        window.location.reload();
+      } else {
+        toast.warning(messageResponse.message);
+      }
     } else {
-      toast.warning(messageResponse.message);
+      toast.warning("File size too large");
     }
   }
 
@@ -88,24 +92,24 @@ export default function UploadFileForStudent() {
   return (
     <>
       <div
-  style={{
-    display: "flex",
-    justifyContent: "center",
-    gap: "5px",
-  }}
->
-  <div>
-    <AccountProfileDetails />
-  </div>
-  <div>
-    <ChangePassword />
-  </div>
-  <div>
-    <Button variant="outlined" onClick={handleClickOpen}>
-      Add File
-    </Button>
-  </div>
-</div>
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "5px",
+        }}
+      >
+        <div>
+          <AccountProfileDetails />
+        </div>
+        <div>
+          <ChangePassword />
+        </div>
+        <div>
+          <Button variant="outlined" onClick={handleClickOpen}>
+            Add File
+          </Button>
+        </div>
+      </div>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -123,12 +127,15 @@ export default function UploadFileForStudent() {
                 value={name}
                 label="Age"
                 onChange={handleChange}
-                required 
+                required
               >
                 <MenuItem value="vesikalik">Vesikalık</MenuItem>
                 <MenuItem value="sağlik_belgesi">Sağlık belgesi</MenuItem>
                 <MenuItem value="ogrenci_belgesi">Öğrenci belgesi</MenuItem>
-                <MenuItem value="adli_sicil_belgesi"> Adli sicil belgesi </MenuItem>
+                <MenuItem value="adli_sicil_belgesi">
+                  {" "}
+                  Adli sicil belgesi{" "}
+                </MenuItem>
                 <MenuItem value="ikametgah_belgesi">Ikametgah belgesi</MenuItem>
               </Select>
             </FormControl>

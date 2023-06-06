@@ -24,9 +24,11 @@ export const AccountProfile = () => {
   const [url, setUrl] = useState({});
 
   const [img, setImg] = useState();
+  const [isImg, setIsImg] = useState(false);
 
   useEffect(() => {
     fetchImage();
+    console.log("as", img); // This will log the image URL when it is set
   }, []);
 
   useEffect(() => {
@@ -35,18 +37,37 @@ export const AccountProfile = () => {
 
   const fetchImage = async () => {
     const res = await fetch(`/avatar/list/${id}`);
-    const imageBlob = await res.blob();
-    const imageObjectURL = URL.createObjectURL(imageBlob);
-    setImg(imageObjectURL);
+    if (res.status === 200) {
+      console.log(res.status);
+      const imageBlob = await res.blob();
+      const imageObjectURL = URL.createObjectURL(imageBlob);
+      setImg(imageObjectURL);
+    }
+    // console.log("imageObjectURL" + imageObjectURL);
   };
 
   return (
     <>
       <Card>
         <CardContent>
-        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <Avatar src={img} alt="Profile Avatar" sx={{ width: 200, height: 200, borderRadius: "50%" }} />
-            <Typography gutterBottom variant="h5" sx={{ fontWeight: "bold", mt: 2 }}>
+          <Box
+            sx={{
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            {img && (
+              <Avatar
+                src={img}
+                sx={{
+                  height: 150,
+                  mb: 2,
+                  width: 150,
+                }}
+              />
+            )}
+            <Typography gutterBottom variant="h5">
               {user.name}
             </Typography>
           </Box>

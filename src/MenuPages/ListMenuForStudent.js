@@ -9,7 +9,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import axios from "axios";
 import { toast } from "react-toastify";
-import {Box } from "@mui/material";
+import { Box } from "@mui/material";
 import { MenuApi } from "../api/MenuApi";
 import { useParams } from "react-router-dom";
 import Rating from "@mui/material/Rating";
@@ -38,12 +38,6 @@ function ListMenuForStudent() {
       field: "food",
       headerName: "Food",
       width: 520,
-      editable: true,
-    },
-    {
-      field: "puan",
-      headerName: "Rating",
-      width: 80,
       editable: true,
     },
     {
@@ -138,7 +132,7 @@ function ListMenuForStudent() {
     <div>
       <AppBarForStudents />
       <Container>
-        <Box sx={{ width: "100%", m: "2rem", margin: "2rem auto 0"}}>
+        <Box sx={{ width: "100%", m: "2rem", margin: "2rem auto 0" }}>
           <Stack direction="row" spacing={1}></Stack>
           <Box sx={{ height: 600, mt: 1 }}>
             <DataGrid
